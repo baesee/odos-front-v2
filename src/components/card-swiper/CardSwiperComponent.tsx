@@ -35,7 +35,7 @@ const CardSwiperComponent: React.FC = () => {
                         gap={2}
                     >
                         <Box component={'img'} width={250} src={EmptyState} />
-                        <Typography variant={'subtitle2'}>
+                        <Typography variant={'subtitle2'} color="white">
                             You've reached the <br /> end of the list
                         </Typography>
                     </Stack>
