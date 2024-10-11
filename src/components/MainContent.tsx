@@ -14,6 +14,9 @@ const MainContent: React.FC = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 padding: 2,
+                background:
+                    'linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460)', // 어두운 그라데이션 배경
+                color: 'black',
             }}
         >
             <CardSwiperComponent />

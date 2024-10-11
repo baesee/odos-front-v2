@@ -4,14 +4,14 @@ import { CardSwiper } from 'react-card-swiper';
 import EmptyState from '../../assets/icons/empty-state.svg';
 import { mockData } from './CardSwiperData';
 import { handleDismiss, handleFinish } from './CardSwiperHandlers';
-
+import './CardSwiperCustom.css';
 const CardSwiperComponent: React.FC = () => {
     return (
         <Box
             sx={{
                 width: '100%',
                 height: '85%',
-                maxWidth: 400,
+                maxWidth: 450,
             }}
         >
             <CardSwiper
