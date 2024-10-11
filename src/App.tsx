@@ -16,6 +16,8 @@ function App() {
                     margin: '0 auto',
                     bgcolor: 'background.paper',
                     overflow: 'hidden',
+                    boxShadow: '0px 0px 55px rgba(0, 0, 0, 0.7)', // 그림자 효과 추가
+                    borderRadius: '10px', // 모서리를 둥글게 만듭니다 (선택사항)
                 }}
             >
                 <Header />
