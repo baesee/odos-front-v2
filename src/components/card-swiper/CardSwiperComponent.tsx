@@ -10,8 +10,8 @@ const CardSwiperComponent: React.FC = () => {
         <Box
             sx={{
                 width: '100%',
-                height: '85%',
-                maxWidth: 450,
+                height: '90%',
+                maxWidth: 440,
             }}
         >
             <CardSwiper

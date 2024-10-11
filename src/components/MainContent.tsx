@@ -15,7 +15,7 @@ const MainContent: React.FC = () => {
                 alignItems: 'center',
                 padding: 2,
                 background:
-                    'linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460)', // 어두운 그라데이션 배경
+                    'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)', // 조금 더 밝은 그라데이션 배경
                 color: 'black',
             }}
         >

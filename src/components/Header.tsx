@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 
 const Header: React.FC = () => {
     return (
-        <AppBar position="sticky">
+        <AppBar position="sticky" sx={{ backgroundColor: '#2a2a4e' }}>
             <Toolbar>
                 <IconButton
                     size="large"
