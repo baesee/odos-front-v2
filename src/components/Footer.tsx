@@ -1,9 +1,9 @@
 import * as React from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Box } from '@mui/material';
 const Footer: React.FC = () => {
     const [value, setValue] = React.useState('recents');
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
                 <BottomNavigationAction
                     label="home"
                     value="home"
-                    icon={<RestoreIcon />}
+                    icon={<ChatBubbleIcon />}
                 />
                 <BottomNavigationAction
                     label="Wishlist"
