@@ -9,10 +9,11 @@ function App() {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100vh',
+                height: '100vh', // 뷰포트 높이로 설정
                 maxWidth: '500px',
                 margin: '0 auto',
                 bgcolor: 'background.paper',
+                overflow: 'hidden', // 전체 레이아웃의 오버플로우를 숨김
             }}
         >
             <Header />

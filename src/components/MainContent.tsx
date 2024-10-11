@@ -7,11 +7,10 @@ const MainContent: React.FC = () => {
             component="main"
             sx={{
                 flexGrow: 1,
-                mt: 2,
-                mb: 2,
-                height: '100vh',
+                overflow: 'auto', // 내용이 많아질 경우 스크롤 생성
                 display: 'flex',
                 flexDirection: 'column',
+                padding: 2, // 내용과 경계 사이에 여백 추가
             }}
         >
             <Typography variant="h4" component="h1" gutterBottom>

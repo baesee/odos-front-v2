@@ -1,10 +1,9 @@
 import * as React from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import FolderIcon from '@mui/icons-material/Folder';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 import { Box } from '@mui/material';
 const Footer: React.FC = () => {
     const [value, setValue] = React.useState('recents');
@@ -27,24 +26,19 @@ const Footer: React.FC = () => {
                 sx={{ borderTop: 1, borderColor: 'divider' }}
             >
                 <BottomNavigationAction
-                    label="Recents"
-                    value="recents"
+                    label="home"
+                    value="home"
                     icon={<RestoreIcon />}
                 />
                 <BottomNavigationAction
-                    label="Favorites"
-                    value="favorites"
+                    label="Wishlist"
+                    value="Wishlist"
                     icon={<FavoriteIcon />}
                 />
                 <BottomNavigationAction
-                    label="Nearby"
-                    value="nearby"
-                    icon={<LocationOnIcon />}
-                />
-                <BottomNavigationAction
-                    label="Folder"
-                    value="folder"
-                    icon={<FolderIcon />}
+                    label="more"
+                    value="more"
+                    icon={<MoreHorizTwoToneIcon />}
                 />
             </BottomNavigation>
         </Box>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import InsightsTwoToneIcon from '@mui/icons-material/InsightsTwoTone';
+import PersonIcon from '@mui/icons-material/Person';
 
 const Header: React.FC = () => {
     return (
@@ -18,7 +19,9 @@ const Header: React.FC = () => {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     로고
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <IconButton aria-label="fingerprint" color="inherit">
+                    <PersonIcon sx={{ fontSize: 30 }} />
+                </IconButton>
             </Toolbar>
         </AppBar>
     );
