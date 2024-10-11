@@ -16,9 +16,11 @@ const Header: React.FC = () => {
                 >
                     <InsightsTwoToneIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    로고
-                </Typography>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                ></Typography>
                 <IconButton aria-label="fingerprint" color="inherit">
                     <PersonIcon sx={{ fontSize: 30 }} />
                 </IconButton>
