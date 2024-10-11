@@ -8,13 +8,14 @@ const Header: React.FC = () => {
         <AppBar position="sticky" sx={{ backgroundColor: '#2a2a4e' }}>
             <Toolbar>
                 <IconButton
-                    size="large"
+                    size="medium"
                     edge="start"
                     color="inherit"
                     aria-label="menu"
                     sx={{ mr: 2 }}
                 >
                     <InsightsTwoToneIcon />
+                    ABCD
                 </IconButton>
                 <Typography
                     variant="h6"

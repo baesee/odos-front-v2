@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import CardSwiperComponent from './card-swiper/CardSwiperComponent';
+import CardSwiperComponent from '../card-swiper/CardSwiperComponent';
 
 const MainContent: React.FC = () => {
     return (
