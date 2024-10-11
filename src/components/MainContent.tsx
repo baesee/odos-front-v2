@@ -51,25 +51,25 @@ const MainContent: React.FC = () => {
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
+                justifyContent: 'center', // 세로 중앙 정렬
+                alignItems: 'center', // 가로 중앙 정렬
                 padding: 2,
             }}
         >
-            <Stack
-                height={'90%'}
-                width={'90%'}
-                direction="column"
-                alignItems="center"
-                justifyContent={'center'}
-                p={2}
+            <Box
+                sx={{
+                    width: '100%',
+                    height: '85%',
+                    maxWidth: 400, // CardSwiper의 최대 너비 설정
+                    aspectRatio: '2/3', // CardSwiper의 비율 설정 (필요에 따라 조정)
+                }}
             >
                 <CardSwiper
                     data={mockData}
                     onFinish={handleFinish}
                     onDismiss={handleDismiss}
-                    dislikeButton={<div>Left</div>}
-                    likeButton={<div>Right</div>}
                     withRibbons
-                    likeRibbonText="INSTALL"
+                    likeRibbonText="WISHLIST"
                     dislikeRibbonText="PASS"
                     ribbonColors={{
                         bgLike: 'green',
@@ -95,7 +95,7 @@ const MainContent: React.FC = () => {
                         </Stack>
                     }
                 />
-            </Stack>
+            </Box>
         </Box>
     );
 };
