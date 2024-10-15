@@ -8,3 +8,9 @@ div .swipe-card__image {
     width: 100%;
     height: 100%;
 }
+
+div .swipe-card__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
