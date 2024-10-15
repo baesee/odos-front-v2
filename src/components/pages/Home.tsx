@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import CardSwiperComponent from '../card-swiper/CardSwiperComponent';
 
-const MainContent: React.FC = () => {
+const Home: React.FC = () => {
     return (
         <Box
             component="main"
@@ -24,4 +24,4 @@ const MainContent: React.FC = () => {
     );
 };
 
-export default MainContent;
+export default Home;

@@ -17,9 +17,9 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                 bottom: 0,
                 left: 0,
                 right: 0,
-                maxHeight: '33%', // 카드의 최대 40%까지만 차지하도록 설정
+                maxHeight: '30%', // 카드의 최대 40%까지만 차지하도록 설정
                 padding: 2,
-                background: 'rgba(0, 0, 0, 0.4)',
+                background: 'rgba(0, 0, 0, 0.3)',
                 color: 'white',
                 backdropFilter: 'blur(5px)',
                 overflowY: 'auto', // 세로 스크롤 추가
