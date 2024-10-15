@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import Header from './components/layout/Header';
@@ -6,8 +6,11 @@ import Home from './components/pages/Home';
 import Footer from './components/layout/Footer';
 import WishlistPage from './components/pages/WishlistPage';
 import MorePage from './components/pages/MorePage';
+import Onboarding from './components/Onboarding';
 
-function App() {
+const App: React.FC = () => {
+    const [showOnboarding, setShowOnboarding] = useState(false);
+
     useEffect(() => {
         const createOrUpdateCookie = () => {
             const cookieName = 'odos_cookie';
@@ -25,7 +28,17 @@ function App() {
         };
 
         createOrUpdateCookie();
+
+        const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+        if (!hasSeenOnboarding) {
+            setShowOnboarding(true);
+        }
     }, []);
+
+    const handleOnboardingComplete = () => {
+        localStorage.setItem('hasSeenOnboarding', 'true');
+        setShowOnboarding(false);
+    };
 
     return (
         <Router>
@@ -50,10 +63,13 @@ function App() {
                     <Route path="/more" element={<MorePage />} />
                 </Routes>
                 <Footer />
+                {showOnboarding && (
+                    <Onboarding onComplete={handleOnboardingComplete} />
+                )}
             </Box>
         </Router>
     );
-}
+};
 
 // 고유 ID 생성 함수 (예시)
 function generateUniqueId() {

@@ -36,10 +36,10 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                 },
             }}
         >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h5" gutterBottom>
                 {title}
             </Typography>
-            <Typography variant="body2">{description}</Typography>
+            <Typography variant="body1">{description}</Typography>
         </Box>
     );
 };
