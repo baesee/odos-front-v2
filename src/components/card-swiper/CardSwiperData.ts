@@ -14,7 +14,7 @@ export const convertWiseSayToCardData = (wiseSay: WiseSay): CardData => ({
     meta: { wiseSayNo: wiseSay.wiseSayNo },
     src: wiseSay.attachmentFileNo
         ? `URL_TO_IMAGE/${wiseSay.attachmentFileNo}`
-        : 'DEFAULT_IMAGE_URL',
+        : `https://picsum.photos/400/600?random=${wiseSay.wiseSayNo}`,
     content: React.createElement(CardSwiperContent, {
         title: wiseSay.title,
         description: wiseSay.content,
