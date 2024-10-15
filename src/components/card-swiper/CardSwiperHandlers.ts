@@ -5,5 +5,5 @@ export const handleDismiss: CardEvent = (el, meta, id, action, operation) => {
 };
 
 export const handleFinish = (status: string) => {
-    console.log(status); // 'finished'
+    // 모든 카드를 다 보셨습니다!
 };

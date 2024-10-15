@@ -17,14 +17,18 @@ const CardSwiperComponent: React.FC = () => {
     const [cardData, setCardData] = useState<CardData[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | null>(null);
+    const [refreshKey, setRefreshKey] = useState<number>(0);
+    const [allCardData, setAllCardData] = useState<CardData[]>([]);
 
     const loadWiseSayList = async () => {
         setLoading(true);
         try {
             const response = await fetchWiseSayList();
             const newCardData = response.data.map(convertWiseSayToCardData);
-            setCardData((prevData) => [...prevData, ...newCardData]);
+            setCardData(newCardData);
+            setAllCardData(newCardData);
             setError(null);
+            setRefreshKey((prevKey) => prevKey + 1);
         } catch (err) {
             setError(err as Error);
         } finally {
@@ -39,11 +43,13 @@ const CardSwiperComponent: React.FC = () => {
     const loadMoreCardData = async () => {
         setLoading(true);
         try {
-            const url = getAdditionalWiseSayListUrl(cardData);
+            const url = getAdditionalWiseSayListUrl(allCardData);
             const response = await fetchAdditionalWiseSayList(url);
             const newCardData = response.data.map(convertWiseSayToCardData);
-            setCardData((prevData) => [...prevData, ...newCardData]);
+            setCardData(newCardData);
+            setAllCardData((prevData) => [...prevData, ...newCardData]);
             setError(null);
+            setRefreshKey((prevKey) => prevKey + 1);
         } catch (err) {
             setError(err as Error);
         } finally {
@@ -63,6 +69,7 @@ const CardSwiperComponent: React.FC = () => {
             }}
         >
             <CardSwiper
+                key={refreshKey}
                 data={cardData}
                 onFinish={handleFinish}
                 onDismiss={handleDismiss}
