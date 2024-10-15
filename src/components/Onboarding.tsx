@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
@@ -15,10 +17,32 @@ const swipeAnimation = keyframes`
   100% { transform: translateX(-20px) rotate(0deg); }
 `;
 
+const leftArrowAnimation = keyframes`
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-10px); }
+`;
+
+const rightArrowAnimation = keyframes`
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+`;
+
 const HandIcon = styled(PanToolAltIcon)`
     font-size: 64px;
     color: white;
     animation: ${swipeAnimation} 2s infinite;
+`;
+
+const LeftArrow = styled(ArrowBackIcon)`
+    font-size: 32px;
+    color: white;
+    animation: ${leftArrowAnimation} 1s infinite;
+`;
+
+const RightArrow = styled(ArrowForwardIcon)`
+    font-size: 32px;
+    color: white;
+    animation: ${rightArrowAnimation} 1s infinite;
 `;
 
 const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
@@ -72,7 +96,18 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                     color: 'white',
                 }}
             >
-                <HandIcon />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 2,
+                    }}
+                >
+                    <LeftArrow />
+                    <HandIcon />
+                    <RightArrow />
+                </Box>
                 <Typography variant="h6" sx={{ mt: 2, textAlign: 'center' }}>
                     카드를 좌우로 스와이프하세요
                 </Typography>
