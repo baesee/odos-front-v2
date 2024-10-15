@@ -11,7 +11,18 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
     description,
 }) => {
     return (
-        <Box sx={{ p: 2 }}>
+        <Box
+            sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: 2,
+                background: 'rgba(0, 0, 0, 0.6)', // 강한 투명도의 검은 배경
+                color: 'white',
+                backdropFilter: 'blur(5px)', // 배경 블러 효과
+            }}
+        >
             <Typography variant="h6" gutterBottom>
                 {title}
             </Typography>

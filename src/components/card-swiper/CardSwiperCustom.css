@@ -1,4 +1,10 @@
 div .swipe-card__image-container {
     position: relative;
-    height: 70%;
+    height: 100%;
+}
+
+div .swipe-card__image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
