@@ -13,7 +13,7 @@ export const apiService = {
 
     post: async <T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AxiosRequestConfig
     ): Promise<APIResponse<T>> => {
         const response = await axiosInstance.post<APIResponse<T>>(
@@ -26,7 +26,7 @@ export const apiService = {
 
     put: async <T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AxiosRequestConfig
     ): Promise<APIResponse<T>> => {
         const response = await axiosInstance.put<APIResponse<T>>(
@@ -50,7 +50,7 @@ export const apiService = {
 
     patch: async <T>(
         url: string,
-        data?: any,
+        data?: unknown,
         config?: AxiosRequestConfig
     ): Promise<APIResponse<T>> => {
         const response = await axiosInstance.patch<APIResponse<T>>(
