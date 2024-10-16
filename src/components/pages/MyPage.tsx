@@ -52,6 +52,7 @@ const MyPage: React.FC = () => {
                 component="div"
                 sx={{
                     cursor: 'pointer',
+                    fontSize: '0.9rem', // 폰트 크기를 조금 줄임
                     '&:hover': {
                         textDecoration: 'underline',
                         cursor: 'pointer',
