@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    Navigate,
+} from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
 import Header from './components/layout/Header';
 import Home from './components/pages/Home';
 import Footer from './components/layout/Footer';
 import WishlistPage from './components/pages/WishlistPage';
 import MorePage from './components/pages/MorePage';
+import LoginPage from './components/pages/LoginPage';
 import Onboarding from './components/Onboarding';
 
 const App: React.FC = () => {
     const [showOnboarding, setShowOnboarding] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         const createOrUpdateCookie = () => {
@@ -33,6 +40,10 @@ const App: React.FC = () => {
         if (!hasSeenOnboarding) {
             setShowOnboarding(true);
         }
+
+        // 로그인 상태 확인 (예시)
+        const token = localStorage.getItem('auth_token');
+        setIsLoggedIn(!!token);
     }, []);
 
     const handleOnboardingComplete = () => {
@@ -56,11 +67,21 @@ const App: React.FC = () => {
                     borderRadius: '10px',
                 }}
             >
-                <Header />
+                <Header isLoggedIn={isLoggedIn} />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/wishlist" element={<WishlistPage />} />
+                    <Route
+                        path="/wishlist"
+                        element={
+                            isLoggedIn ? (
+                                <WishlistPage />
+                            ) : (
+                                <Navigate to="/login" />
+                            )
+                        }
+                    />
                     <Route path="/more" element={<MorePage />} />
+                    <Route path="/login" element={<LoginPage />} />
                 </Routes>
                 <Footer />
                 {showOnboarding && (
