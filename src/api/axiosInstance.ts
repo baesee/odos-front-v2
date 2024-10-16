@@ -41,7 +41,6 @@ export const refreshAccessToken = async (): Promise<string | null> => {
             expires: 1 / 24,
         }); // 1시간 후 만료
         return response.data.accessToken;
-        console.error('토큰 갱신');
     } catch (error) {
         console.error('액세스 토큰 갱신 실패:', error);
         Cookies.remove('odos_access_token');

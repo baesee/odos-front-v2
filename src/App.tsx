@@ -15,6 +15,7 @@ import MorePage from './components/pages/MorePage';
 import LoginPage from './components/pages/LoginPage';
 import Onboarding from './components/Onboarding';
 import TokenRefresher from './components/TokenRefresher';
+import MyPage from './components/pages/MyPage';
 
 const App: React.FC = () => {
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -83,6 +84,12 @@ const App: React.FC = () => {
                         }
                     />
                     <Route path="/more" element={<MorePage />} />
+                    <Route
+                        path="/mypage"
+                        element={
+                            isLoggedIn ? <MyPage /> : <Navigate to="/login" />
+                        }
+                    />
                     <Route path="/login" element={<LoginPage />} />
                 </Routes>
                 <Footer />
