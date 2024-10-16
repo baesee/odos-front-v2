@@ -1,22 +1,39 @@
 import React, { useEffect, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { refreshAccessToken } from '../api/axiosInstance';
+import { jwtDecode } from 'jwt-decode';
 
-const TOKEN_REFRESH_INTERVAL = 8 * 60 * 1000; // 8분마다 체크
+const TOKEN_REFRESH_INTERVAL = 5 * 60 * 1000; // 5분마다 체크
 const TOKEN_EXPIRY_THRESHOLD = 15 * 60 * 1000; // 만료 15분 전
+
+interface JwtPayload {
+    exp: number;
+    iat: number;
+    memberNo: number;
+    nickname: string;
+    profileImageUri?: string | null | undefined;
+    roles: string;
+}
 
 const TokenRefresher: React.FC = () => {
     const checkAndRefreshToken = useCallback(async () => {
         const accessToken = Cookies.get('odos_access_token');
         if (!accessToken) return;
+        try {
+            const payload = jwtDecode<JwtPayload>(accessToken);
+            console.log('payload', payload);
+            const expiryTime = payload.exp * 1000;
+            const currentTime = Date.now();
 
-        // JWT 디코딩 (간단한 구현, 실제로는 더 안전한 방법 사용 권장)
-        const payload = JSON.parse(atob(accessToken.split('.')[1]));
-        const expiryTime = payload.exp * 1000; // JWT의 exp는 초 단위
-        const currentTime = Date.now();
-
-        if (expiryTime - currentTime < TOKEN_EXPIRY_THRESHOLD) {
-            await refreshAccessToken();
+            if (expiryTime - currentTime < TOKEN_EXPIRY_THRESHOLD) {
+                await refreshAccessToken();
+            }
+        } catch (error) {
+            console.error('토큰 디코딩 또는 갱신 중 오류 발생:', error);
+            // 토큰이 유효하지 않은 경우 로그아웃 처리
+            Cookies.remove('odos_access_token');
+            Cookies.remove('odos_refresh_token');
+            window.location.href = '/login';
         }
     }, []);
 
@@ -28,7 +45,7 @@ const TokenRefresher: React.FC = () => {
         return () => clearInterval(intervalId);
     }, [checkAndRefreshToken]);
 
-    return null; // 이 컴포넌트는 UI를 렌더링하지 않습니다.
+    return null;
 };
 
 export default TokenRefresher;

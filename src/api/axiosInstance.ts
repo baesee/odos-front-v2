@@ -15,16 +15,19 @@ const axiosInstance: AxiosInstance = axios.create({
     withCredentials: true,
 });
 
-// 액세스 토큰 갱신 함수
-export const refreshAccessToken = async () => {
-    interface ReissueResponse {
-        accessToken: string;
-        refreshToken: string;
-    }
+interface ReissueResponse {
+    accessToken: string;
+    refreshToken: string;
+}
 
+export const refreshAccessToken = async (): Promise<string | null> => {
     try {
         const accessToken = Cookies.get('odos_access_token');
         const refreshToken = Cookies.get('odos_refresh_token');
+
+        if (!refreshToken) {
+            throw new Error('리프레시 토큰이 없습니다.');
+        }
 
         const response = await apiService.post<ReissueResponse>(
             '/member/reissue/token',
@@ -37,10 +40,10 @@ export const refreshAccessToken = async () => {
         Cookies.set('odos_access_token', response.data.accessToken, {
             expires: 1 / 24,
         }); // 1시간 후 만료
-
         return response.data.accessToken;
+        console.error('토큰 갱신');
     } catch (error) {
-        // 리프레시 토큰도 만료된 경우, 로그아웃 처리
+        console.error('액세스 토큰 갱신 실패:', error);
         Cookies.remove('odos_access_token');
         Cookies.remove('odos_refresh_token');
         window.location.href = '/login';
@@ -50,18 +53,14 @@ export const refreshAccessToken = async () => {
 
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
-    async (config: InternalAxiosRequestConfig) => {
+    (config: InternalAxiosRequestConfig) => {
         const token = Cookies.get('odos_access_token');
-
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
-
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
 
 // 응답 인터셉터
