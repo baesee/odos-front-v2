@@ -2,17 +2,15 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useAuth } from '../../contexts/AuthContext';
 
-interface HeaderProps {
-    isLoggedIn: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
+const Header: React.FC = () => {
     const navigate = useNavigate();
+    const { isLoggedIn } = useAuth();
 
     const handleIconClick = () => {
         if (isLoggedIn) {
-            navigate('/mypage'); // 마이페이지로 이동 (MorePage를 마이페이지로 사용)
+            navigate('/mypage');
         } else {
             navigate('/login');
         }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import KakaoLoginButton from '../../assets/kakao_login_medium_wide.png';
 import { socialLogin } from '../../api/authApi';
 import Cookies from 'js-cookie';
+import { useAuth } from '../../contexts/AuthContext';
 
 declare global {
     interface Window {
@@ -22,6 +23,7 @@ declare global {
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
+    const { setIsLoggedIn, checkLoginStatus } = useAuth();
 
     useEffect(() => {
         if (!window.Kakao.isInitialized()) {
@@ -34,17 +36,10 @@ const LoginPage: React.FC = () => {
             success: async (authObj) => {
                 try {
                     const response = await socialLogin(authObj.access_token);
-                    // 쿠키 보안 처리 및 만료 시간 설정
-                    Cookies.set(
-                        'odos_access_token',
-                        response.data.accessToken,
-                        { expires: 1 / 24 }
-                    ); // 1시간 후 만료
-                    Cookies.set(
-                        'odos_refresh_token',
-                        response.data.refreshToken,
-                        { expires: 90 }
-                    ); // 90일 후 만료
+                    Cookies.set('odos_access_token', response.data.accessToken, { expires: 1 / 24 });
+                    Cookies.set('odos_refresh_token', response.data.refreshToken, { expires: 90 });
+                    setIsLoggedIn(true);
+                    checkLoginStatus();
                     navigate('/');
                 } catch (error) {
                     console.error('서버 로그인 실패:', error);

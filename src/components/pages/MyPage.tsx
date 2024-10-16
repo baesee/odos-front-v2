@@ -2,16 +2,19 @@ import React from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import ProfileImage from '../mypage/ProfileImage';
 import Nickname from '../mypage/Nickname';
-import LogoutButton from '../mypage/LogoutButton';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const MyPage: React.FC = () => {
     const navigate = useNavigate();
+    const { setIsLoggedIn, checkLoginStatus } = useAuth();
 
     const handleLogout = () => {
         Cookies.remove('odos_access_token');
         Cookies.remove('odos_refresh_token');
+        setIsLoggedIn(false);
+        checkLoginStatus();
         navigate('/');
     };
     return (

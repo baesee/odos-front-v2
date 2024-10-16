@@ -16,10 +16,11 @@ import LoginPage from './components/pages/LoginPage';
 import Onboarding from './components/Onboarding';
 import TokenRefresher from './components/TokenRefresher';
 import MyPage from './components/pages/MyPage';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
     const [showOnboarding, setShowOnboarding] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, checkLoginStatus } = useAuth();
 
     useEffect(() => {
         const createOrUpdateCookie = () => {
@@ -27,11 +28,9 @@ const App: React.FC = () => {
             let cookieValue = Cookies.get(cookieName);
 
             if (!cookieValue) {
-                // 쿠키가 없으면 새로 생성
-                cookieValue = generateUniqueId(); // 고유 ID 생성 함수
-                Cookies.set(cookieName, cookieValue, { expires: 365 }); // 1년 유효
+                cookieValue = generateUniqueId();
+                Cookies.set(cookieName, cookieValue, { expires: 365 });
             } else {
-                // 쿠키가 이미 있으면 유효기간만 갱신
                 Cookies.set(cookieName, cookieValue, { expires: 365 });
             }
         };
@@ -43,10 +42,8 @@ const App: React.FC = () => {
             setShowOnboarding(true);
         }
 
-        // 로그인 상태 확인 (예시)
-        const accessToken = Cookies.get('odos_access_token');
-        setIsLoggedIn(!!accessToken);
-    }, []);
+        checkLoginStatus();
+    }, [checkLoginStatus]);
 
     const handleOnboardingComplete = () => {
         localStorage.setItem('hasSeenOnboarding', 'true');
@@ -70,7 +67,7 @@ const App: React.FC = () => {
                     borderRadius: '10px',
                 }}
             >
-                <Header isLoggedIn={isLoggedIn} />
+                <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route
@@ -101,7 +98,14 @@ const App: React.FC = () => {
     );
 };
 
-// 고유 ID 생성 함수 (예시)
+const App: React.FC = () => {
+    return (
+        <AuthProvider>
+            <AppContent />
+        </AuthProvider>
+    );
+};
+
 function generateUniqueId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
