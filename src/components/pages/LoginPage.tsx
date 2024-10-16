@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import KakaoLoginButton from '../../assets/kakao_login_medium_wide.png';
+import { socialLogin } from '../../api/authApi';
+import Cookies from 'js-cookie';
 
 declare global {
     interface Window {
@@ -29,13 +31,29 @@ const LoginPage: React.FC = () => {
 
     const handleKakaoLogin = () => {
         window.Kakao.Auth.login({
-            success: (authObj) => {
-                localStorage.setItem('auth_token', authObj.access_token);
-                navigate('/');
+            success: async (authObj) => {
+                try {
+                    const response = await socialLogin(authObj.access_token);
+                    // 쿠키 보안 처리 및 만료 시간 설정
+                    Cookies.set(
+                        'odos_access_token',
+                        response.data.accessToken,
+                        { expires: 1 / 24 }
+                    ); // 1시간 후 만료
+                    Cookies.set(
+                        'odos_refresh_token',
+                        response.data.refreshToken,
+                        { expires: 90 }
+                    ); // 90일 후 만료
+                    navigate('/');
+                } catch (error) {
+                    console.error('서버 로그인 실패:', error);
+                    alert('로그인에 실패했습니다. 다시 시도해주세요.');
+                }
             },
             fail: (err) => {
                 console.error('카카오 로그인 실패:', err);
-                alert('로그인에 실패했습니다. 다시 시도해주세요.');
+                alert('카카오 로그인에 실패했습니다. 다시 시도해주세요.');
             },
         });
     };

@@ -6,6 +6,7 @@ import {
     Navigate,
 } from 'react-router-dom';
 import { Box, CssBaseline } from '@mui/material';
+import Cookies from 'js-cookie';
 import Header from './components/layout/Header';
 import Home from './components/pages/Home';
 import Footer from './components/layout/Footer';
@@ -13,6 +14,7 @@ import WishlistPage from './components/pages/WishlistPage';
 import MorePage from './components/pages/MorePage';
 import LoginPage from './components/pages/LoginPage';
 import Onboarding from './components/Onboarding';
+import TokenRefresher from './components/TokenRefresher';
 
 const App: React.FC = () => {
     const [showOnboarding, setShowOnboarding] = useState(false);
@@ -21,16 +23,15 @@ const App: React.FC = () => {
     useEffect(() => {
         const createOrUpdateCookie = () => {
             const cookieName = 'odos_cookie';
-            const cookieValue = localStorage.getItem(cookieName);
+            let cookieValue = Cookies.get(cookieName);
 
             if (!cookieValue) {
                 // 쿠키가 없으면 새로 생성
-                const newCookieValue = generateUniqueId(); // 고유 ID 생성 함수
-                localStorage.setItem(cookieName, newCookieValue);
-                document.cookie = `${cookieName}=${newCookieValue}; path=/; max-age=31536000`; // 1년 유효
+                cookieValue = generateUniqueId(); // 고유 ID 생성 함수
+                Cookies.set(cookieName, cookieValue, { expires: 365 }); // 1년 유효
             } else {
                 // 쿠키가 이미 있으면 유효기간만 갱신
-                document.cookie = `${cookieName}=${cookieValue}; path=/; max-age=31536000`;
+                Cookies.set(cookieName, cookieValue, { expires: 365 });
             }
         };
 
@@ -42,8 +43,8 @@ const App: React.FC = () => {
         }
 
         // 로그인 상태 확인 (예시)
-        const token = localStorage.getItem('auth_token');
-        setIsLoggedIn(!!token);
+        const accessToken = Cookies.get('odos_access_token');
+        setIsLoggedIn(!!accessToken);
     }, []);
 
     const handleOnboardingComplete = () => {
@@ -54,6 +55,7 @@ const App: React.FC = () => {
     return (
         <Router>
             <CssBaseline />
+            <TokenRefresher />
             <Box
                 sx={{
                     display: 'flex',

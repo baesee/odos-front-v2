@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
+import { fetchWishList } from '../../api/wishListApi';
 
 const WishlistPage: React.FC = () => {
+    const loadWishList = async () => {
+        const response = await fetchWishList();
+        console.log(response);
+    };
+
+    useEffect(() => {
+        loadWishList();
+    }, []);
+
     return (
         <Box
             component="main"
