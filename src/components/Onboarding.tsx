@@ -115,7 +115,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
             <Box
                 sx={{
                     position: 'absolute',
-                    bottom: 40,
+                    bottom: 100,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',

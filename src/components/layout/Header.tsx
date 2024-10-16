@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn }) => {
         if (isLoggedIn) {
             navigate('/mypage'); // 마이페이지로 이동 (MorePage를 마이페이지로 사용)
         } else {
-            navigate('/more');
+            navigate('/login');
         }
     };
 
