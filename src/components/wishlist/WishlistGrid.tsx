@@ -22,11 +22,11 @@ const WishlistCard = styled(Box)(({ theme }) => ({
 const MasonryBox = styled(Box)({
     '.my-masonry-grid': {
         display: 'flex',
-        marginLeft: -20, // Increased gutter size
+        marginLeft: -10, // Reduced gutter size for smaller screens
         width: 'auto',
     },
     '.my-masonry-grid_column': {
-        paddingLeft: 20, // Increased gutter size
+        paddingLeft: 10, // Reduced gutter size for smaller screens
         backgroundClip: 'padding-box',
     },
 });
@@ -42,17 +42,18 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
 }) => {
     const breakpointColumnsObj = {
         default: 2,
-        700: 2,
-        500: 1,
+        500: 2, // Changed to 2 columns for screens 500px and below
     };
 
     // Function to generate random height for images
     const getRandomHeight = () => {
-        return Math.floor(Math.random() * (400 - 200 + 1) + 200);
+        return Math.floor(Math.random() * (300 - 200 + 1) + 200); // Reduced max height for smaller screens
     };
 
     return (
-        <MasonryBox sx={{ maxWidth: '800px', width: '100%' }}>
+        <MasonryBox sx={{ width: '100%', maxWidth: '100%' }}>
+            {' '}
+            {/* Removed maxWidth limit */}
             <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
@@ -93,15 +94,16 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                         >
                             <Typography
                                 variant="subtitle1"
-                                sx={{ fontWeight: 'bold' }}
+                                sx={{ fontWeight: 'bold', fontSize: '0.9rem' }} // Reduced font size
                             >
                                 {item.wiseSayTitle}
                             </Typography>
                             <Typography
                                 variant="body2"
-                                sx={{ mt: 1, opacity: 0.8 }}
+                                sx={{ mt: 1, opacity: 0.8, fontSize: '0.8rem' }} // Reduced font size
                             >
-                                {item.wiseSayContent.substring(0, 50)}...
+                                {item.wiseSayContent.substring(0, 30)}...{' '}
+                                {/* Reduced content length */}
                             </Typography>
                         </Box>
                     </WishlistCard>
