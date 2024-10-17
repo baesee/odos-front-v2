@@ -1,11 +1,5 @@
 import { apiService } from './apiService';
-import { APIResponse } from '../types/response';
-
-export interface WishListResponse {
-    wishlistNo: number;
-    title: string;
-    wishlistItemList: WishListItem[];
-}
+import { APIResponse, SlicePagingData } from '../types/response';
 
 export interface WishListItem {
     wishlistItemNo: number;
@@ -14,8 +8,10 @@ export interface WishListItem {
     wiseSayContent: string;
 }
 
-export const fetchWishList = async (): Promise<
-    APIResponse<WishListResponse>
-> => {
-    return await apiService.get<WishListResponse>('/wishlist');
+export const fetchWishList = async (
+    page: number
+): Promise<APIResponse<SlicePagingData<WishListItem>>> => {
+    return await apiService.getSlicePaging<WishListItem>(
+        `/wishlist?page=${page}`
+    );
 };

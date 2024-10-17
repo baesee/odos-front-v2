@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { fetchWishList, WishListResponse } from '../../api/wishListApi';
+import {
+    Box,
+    Typography,
+    Button,
+    Container,
+    CircularProgress,
+} from '@mui/material';
+import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { keyframes } from '@emotion/react';
 import { styled } from '@mui/material/styles';
+import { SlicePagingData } from '../../types/response';
 
 const slideRight = keyframes`
   0% { transform: translateX(-10px); }
@@ -14,13 +21,15 @@ const ArrowSvg = styled('svg')`
 `;
 
 const WishlistPage: React.FC = () => {
-    const [wishList, setWishList] = useState<WishListResponse>();
+    const [wishList, setWishList] =
+        useState<SlicePagingData<WishListItem> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const loadWishList = async () => {
+    const loadWishList = async (page: number = 1) => {
+        setLoading(true);
         try {
-            const response = await fetchWishList();
+            const response = await fetchWishList(page);
             setWishList(response.data);
         } catch (err) {
             setError('위시리스트 정보를 불러오는데 실패했습니다.');
@@ -34,15 +43,33 @@ const WishlistPage: React.FC = () => {
         loadWishList();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
+    const loadMoreItems = () => {
+        if (wishList && wishList.hasNext) {
+            loadWishList(wishList.currentPageNumber + 1);
+        }
+    };
+
+    if (loading && !wishList) {
+        return (
+            <Container
+                maxWidth="sm"
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh',
+                }}
+            >
+                <CircularProgress />
+            </Container>
+        );
     }
 
     if (error) {
         return <div>Error: {error}</div>;
     }
 
-    if (wishList?.wishlistItemList.length === 0) {
+    if (!wishList || wishList.list.length === 0) {
         return (
             <Box
                 component="main"
@@ -132,7 +159,7 @@ const WishlistPage: React.FC = () => {
                 flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 padding: 2,
                 background:
@@ -140,10 +167,30 @@ const WishlistPage: React.FC = () => {
                 color: 'white',
             }}
         >
-            <Typography variant="h4">Wishlist</Typography>
-            <Typography variant="body1">
-                여기에 위시리스트 내용이 표시됩니다.
-            </Typography>
+            {Array.isArray(wishList.list) &&
+                wishList.list.map((item) => (
+                    <Box
+                        key={item.wishlistItemNo}
+                        sx={{ mb: 2, width: '100%', maxWidth: '600px' }}
+                    >
+                        <Typography variant="h6">
+                            {item.wiseSayTitle}
+                        </Typography>
+                        <Typography variant="body1">
+                            {item.wiseSayContent}
+                        </Typography>
+                    </Box>
+                ))}
+            {wishList.hasNext && (
+                <Button
+                    variant="contained"
+                    onClick={loadMoreItems}
+                    disabled={loading}
+                    sx={{ mt: 2 }}
+                >
+                    {loading ? 'Loading...' : '더 보기'}
+                </Button>
+            )}
         </Box>
     );
 };
