@@ -258,11 +258,6 @@ const WishlistPage: React.FC = () => {
                 </Grid>
             </Box>
             {loading && <CircularProgress sx={{ mt: 2 }} />}
-            {!loading && !hasMore && (
-                <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>
-                    조회할 데이터가 없습니다
-                </Typography>
-            )}
         </Box>
     );
 };
