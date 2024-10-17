@@ -1,7 +1,11 @@
 import React from 'react';
 import { Avatar } from '@mui/material';
 
-const ProfileImage: React.FC = () => {
+interface ProfileImageProps {
+    imageUrl: string | null | undefined;
+}
+
+const ProfileImage: React.FC<ProfileImageProps> = ({ imageUrl }) => {
     return (
         <Avatar
             sx={{
@@ -10,8 +14,9 @@ const ProfileImage: React.FC = () => {
                 mb: 2,
                 border: '2px solid white',
             }}
+            src={imageUrl || undefined}
         >
-            Img
+            {!imageUrl && 'Img'}
         </Avatar>
     );
 };

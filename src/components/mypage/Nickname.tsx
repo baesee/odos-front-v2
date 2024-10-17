@@ -1,10 +1,14 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-const Nickname: React.FC = () => {
+interface NicknameProps {
+    nickname: string | undefined;
+}
+
+const Nickname: React.FC<NicknameProps> = ({ nickname }) => {
     return (
         <Typography variant="h5" sx={{ mb: 2 }}>
-            닉네임
+            {nickname || '닉네임'}
         </Typography>
     );
 };
