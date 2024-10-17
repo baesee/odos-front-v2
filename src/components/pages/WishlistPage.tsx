@@ -5,7 +5,6 @@ import { fetchWishList } from '../../api/wishListApi';
 const WishlistPage: React.FC = () => {
     const loadWishList = async () => {
         const response = await fetchWishList();
-        console.log(response);
     };
 
     useEffect(() => {
