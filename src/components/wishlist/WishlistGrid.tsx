@@ -52,8 +52,6 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
 
     return (
         <MasonryBox sx={{ width: '100%', maxWidth: '100%' }}>
-            {' '}
-            {/* Removed maxWidth limit */}
             <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
@@ -61,7 +59,7 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
             >
                 {wishList.list.map((item, index) => (
                     <WishlistCard
-                        key={item.wishlistItemNo}
+                        key={`${item.wishlistItemNo}-${item.wiseSayNo}-${index}`}
                         ref={
                             index === wishList.list.length - 1
                                 ? lastItemRef
