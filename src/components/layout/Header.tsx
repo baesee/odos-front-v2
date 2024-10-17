@@ -21,6 +21,7 @@ const Header: React.FC = () => {
             position="static"
             sx={{
                 backgroundColor: '#2a2a4e', // 바디 그라데이션의 시작 색상
+                borderBottom: '1px solid rgba(255, 255, 255, 0.1)', // 하단에 미묘한 보더 추가
             }}
         >
             <Toolbar>
