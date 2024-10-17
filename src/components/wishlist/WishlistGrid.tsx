@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, CardMedia } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
 import Masonry from 'react-masonry-css';
+import WishlistCardPopup from './WishlistCardPopup';
 
 const WishlistCard = styled(Box)(({ theme }) => ({
     margin: '0 0 20px 0',
@@ -32,14 +33,16 @@ const MasonryBox = styled(Box)({
 });
 
 interface WishlistGridProps {
-    wishList: SlicePagingData<WishListItem>;
-    lastItemRef: (node: HTMLDivElement) => void;
+    wishList: SlicePagingData<WishListItem[]>;
+    lastItemRef: (node: HTMLDivElement | null) => void;
 }
 
 const WishlistGrid: React.FC<WishlistGridProps> = ({
     wishList,
     lastItemRef,
 }) => {
+    const [selectedItem, setSelectedItem] = useState<WishListItem | null>(null);
+
     const breakpointColumnsObj = {
         default: 2,
         500: 2, // Changed to 2 columns for screens 500px and below
@@ -50,6 +53,14 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
         return Math.floor(Math.random() * (300 - 200 + 1) + 200); // Reduced max height for smaller screens
     };
 
+    const handleCardClick = (item: WishListItem) => {
+        setSelectedItem(item);
+    };
+
+    const handleClosePopup = () => {
+        setSelectedItem(null);
+    };
+
     return (
         <MasonryBox sx={{ width: '100%', maxWidth: '100%' }}>
             <Masonry
@@ -57,20 +68,20 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
             >
-                {wishList.list.map((item, index) => (
+                {wishList.list.map((item: WishListItem, index: number) => (
                     <WishlistCard
                         key={`${item.wishlistItemNo}-${item.wiseSayNo}-${index}`}
                         ref={
                             index === wishList.list.length - 1
-                                ? lastItemRef
+                                ? (node) => lastItemRef(node)
                                 : null
                         }
+                        onClick={() => handleCardClick(item)}
                     >
                         <CardMedia
                             component="img"
-                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${
-                                item.wishlistItemNo
-                            }`}
+                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${item.wishlistItemNo
+                                }`}
                             alt={item.wiseSayTitle}
                             sx={{
                                 width: '100%',
@@ -107,6 +118,9 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                     </WishlistCard>
                 ))}
             </Masonry>
+            {selectedItem && (
+                <WishlistCardPopup item={selectedItem} onClose={handleClosePopup} />
+            )}
         </MasonryBox>
     );
 };

@@ -41,3 +41,12 @@ node_modules
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Vite
+dist
+dist-ssr
+*.local
+
+# 개발 환경 임시 파일
+dev-dist
+dev-dist/*
