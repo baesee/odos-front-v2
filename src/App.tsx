@@ -18,9 +18,30 @@ import TokenRefresher from './components/TokenRefresher';
 import MyPage from './components/pages/MyPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
+const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({
+    element,
+}) => {
+    const { isLoggedIn, checkLoginStatus } = useAuth();
+    const [isChecking, setIsChecking] = useState(true);
+
+    useEffect(() => {
+        const check = async () => {
+            await checkLoginStatus();
+            setIsChecking(false);
+        };
+        check();
+    }, [checkLoginStatus]);
+
+    if (isChecking) {
+        return null; // 또는 로딩 인디케이터
+    }
+
+    return isLoggedIn ? element : <Navigate to="/login" />;
+};
+
 const AppContent: React.FC = () => {
     const [showOnboarding, setShowOnboarding] = useState(false);
-    const { isLoggedIn, checkLoginStatus } = useAuth();
+    const { checkLoginStatus } = useAuth();
 
     useEffect(() => {
         const createOrUpdateCookie = () => {
@@ -72,20 +93,12 @@ const AppContent: React.FC = () => {
                     <Route path="/" element={<Home />} />
                     <Route
                         path="/wishlist"
-                        element={
-                            isLoggedIn ? (
-                                <WishlistPage />
-                            ) : (
-                                <Navigate to="/login" />
-                            )
-                        }
+                        element={<ProtectedRoute element={<WishlistPage />} />}
                     />
                     <Route path="/more" element={<MorePage />} />
                     <Route
                         path="/mypage"
-                        element={
-                            isLoggedIn ? <MyPage /> : <Navigate to="/login" />
-                        }
+                        element={<ProtectedRoute element={<MyPage />} />}
                     />
                     <Route path="/login" element={<LoginPage />} />
                 </Routes>
