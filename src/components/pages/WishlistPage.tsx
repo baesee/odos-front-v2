@@ -5,6 +5,10 @@ import {
     Button,
     Container,
     CircularProgress,
+    Grid,
+    Card,
+    CardContent,
+    CardMedia,
 } from '@mui/material';
 import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { keyframes } from '@emotion/react';
@@ -165,28 +169,66 @@ const WishlistPage: React.FC = () => {
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
+
+                overflowY: 'auto', // 세로 스크롤 허용
             }}
         >
-            {Array.isArray(wishList.list) &&
-                wishList.list.map((item) => (
-                    <Box
-                        key={item.wishlistItemNo}
-                        sx={{ mb: 2, width: '100%', maxWidth: '600px' }}
-                    >
-                        <Typography variant="h6">
-                            {item.wiseSayTitle}
-                        </Typography>
-                        <Typography variant="body1">
-                            {item.wiseSayContent}
-                        </Typography>
-                    </Box>
-                ))}
-            {wishList.hasNext && (
+            <Box sx={{ width: '100%', maxWidth: '100%' }}>
+                {' '}
+                {/* 최대 너비 설정 */}
+                <Grid container spacing={2} justifyContent="center">
+                    {Array.isArray(wishList?.list) &&
+                        wishList.list.map((item) => (
+                            <Grid
+                                item
+                                xs={12}
+                                sm={6}
+                                key={item.wishlistItemNo}
+                                sx={{ maxWidth: '400px', mt: 2 }}
+                            >
+                                <Card
+                                    sx={{
+                                        height: 220,
+                                        position: 'relative',
+                                        overflow: 'hidden',
+                                    }}
+                                >
+                                    <CardMedia
+                                        component="img"
+                                        image={`https://picsum.photos/300/200?random=${item.wishlistItemNo}`}
+                                        alt={item.wiseSayTitle}
+                                        sx={{
+                                            height: '100%',
+                                            width: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            bottom: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            bgcolor: 'rgba(0, 0, 0, 0.54)',
+                                            color: 'white',
+                                            padding: '10px',
+                                        }}
+                                    >
+                                        <Typography variant="subtitle1">
+                                            {item.wiseSayTitle}
+                                        </Typography>
+                                    </Box>
+                                </Card>
+                            </Grid>
+                        ))}
+                </Grid>
+            </Box>
+            {wishList?.hasNext && (
                 <Button
                     variant="contained"
                     onClick={loadMoreItems}
                     disabled={loading}
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 2, mb: 2 }}
                 >
                     {loading ? 'Loading...' : '더 보기'}
                 </Button>
