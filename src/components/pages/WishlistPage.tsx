@@ -24,6 +24,18 @@ const ArrowSvg = styled('svg')`
     animation: ${slideRight} 1s ease-in-out infinite alternate;
 `;
 
+const WishlistCard = styled(Card)(({ theme }) => ({
+    height: 220,
+    position: 'relative',
+    overflow: 'hidden',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease-in-out',
+    '&:hover': {
+        transform: 'scale(1.05)',
+        boxShadow: theme.shadows[10],
+    },
+}));
+
 const WishlistPage: React.FC = () => {
     const [wishList, setWishList] =
         useState<SlicePagingData<WishListItem> | null>(null);
@@ -169,13 +181,10 @@ const WishlistPage: React.FC = () => {
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
-
-                overflowY: 'auto', // 세로 스크롤 허용
+                overflowY: 'auto',
             }}
         >
             <Box sx={{ width: '100%', maxWidth: '100%' }}>
-                {' '}
-                {/* 최대 너비 설정 */}
                 <Grid container spacing={2} justifyContent="center">
                     {Array.isArray(wishList?.list) &&
                         wishList.list.map((item) => (
@@ -186,13 +195,7 @@ const WishlistPage: React.FC = () => {
                                 key={item.wishlistItemNo}
                                 sx={{ maxWidth: '400px', mt: 2 }}
                             >
-                                <Card
-                                    sx={{
-                                        height: 220,
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                    }}
-                                >
+                                <WishlistCard>
                                     <CardMedia
                                         component="img"
                                         image={`https://picsum.photos/300/200?random=${item.wishlistItemNo}`}
@@ -212,13 +215,17 @@ const WishlistPage: React.FC = () => {
                                             bgcolor: 'rgba(0, 0, 0, 0.54)',
                                             color: 'white',
                                             padding: '10px',
+                                            transition: 'all 0.3s ease-in-out',
+                                            '&:hover': {
+                                                bgcolor: 'rgba(0, 0, 0, 0.7)',
+                                            },
                                         }}
                                     >
                                         <Typography variant="subtitle1">
                                             {item.wiseSayTitle}
                                         </Typography>
                                     </Box>
-                                </Card>
+                                </WishlistCard>
                             </Grid>
                         ))}
                 </Grid>
