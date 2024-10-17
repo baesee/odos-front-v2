@@ -71,23 +71,22 @@ const MyPage: React.FC = () => {
     }
 
     return (
-        <Container
-            maxWidth="sm"
+        <Box
+            component="main"
             sx={{
+                flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                height: '100vh',
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
                 padding: '2rem 0',
+                paddingBottom: '20px', // 하단에서 20px 위로 올림
             }}
         >
             <Box
                 sx={{
-                    mt: 7,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -95,28 +94,31 @@ const MyPage: React.FC = () => {
                 }}
             >
                 <ProfileImage imageUrl={myPageInfo?.profileImageUrl} />
-                <Box sx={{ mt: 3, textAlign: 'center' }}>
+                <Box sx={{ textAlign: 'center' }}>
                     <Nickname nickname={myPageInfo?.nickName} />
-                    <Typography variant="body1" sx={{ mt: 1 }}>
+                    <Typography variant="body1" sx={{ mt: 3 }}>
                         위시리스트 : {myPageInfo?.wishlistCount || 0}
                     </Typography>
                 </Box>
             </Box>
 
-            <Typography
-                onClick={handleLogout}
-                component="div"
-                sx={{
-                    cursor: 'pointer',
-                    fontSize: '0.9rem',
-                    '&:hover': {
-                        textDecoration: 'underline',
-                    },
-                }}
-            >
-                로그아웃
-            </Typography>
-        </Container>
+            <Box sx={{ textAlign: 'center', mt: 'auto' }}>
+                <Typography
+                    onClick={handleLogout}
+                    component="div"
+                    sx={{
+                        cursor: 'pointer',
+                        fontSize: '0.9rem',
+                        padding: '10px',
+                        '&:hover': {
+                            textDecoration: 'underline',
+                        },
+                    }}
+                >
+                    로그아웃
+                </Typography>
+            </Box>
+        </Box>
     );
 };
 
