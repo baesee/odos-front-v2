@@ -6,26 +6,27 @@ import { SlicePagingData } from '../../types/response';
 import Masonry from 'react-masonry-css';
 
 const WishlistCard = styled(Box)(({ theme }) => ({
-    margin: '0 0 16px 0',
+    margin: '0 0 20px 0',
     position: 'relative',
     overflow: 'hidden',
     cursor: 'pointer',
     transition: 'all 0.3s ease-in-out',
     borderRadius: theme.shape.borderRadius,
+    boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
     '&:hover': {
-        transform: 'scale(1.03)',
-        boxShadow: theme.shadows[10],
+        transform: 'translateY(-5px)',
+        boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
     },
 }));
 
 const MasonryBox = styled(Box)({
     '.my-masonry-grid': {
         display: 'flex',
-        marginLeft: -16, // gutter size offset
+        marginLeft: -20, // Increased gutter size
         width: 'auto',
     },
     '.my-masonry-grid_column': {
-        paddingLeft: 16, // gutter size
+        paddingLeft: 20, // Increased gutter size
         backgroundClip: 'padding-box',
     },
 });
@@ -45,8 +46,13 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
         500: 1,
     };
 
+    // Function to generate random height for images
+    const getRandomHeight = () => {
+        return Math.floor(Math.random() * (400 - 200 + 1) + 200);
+    };
+
     return (
-        <MasonryBox sx={{ maxWidth: '600px', width: '100%' }}>
+        <MasonryBox sx={{ maxWidth: '800px', width: '100%' }}>
             <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
@@ -63,9 +69,9 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                     >
                         <CardMedia
                             component="img"
-                            image={`https://picsum.photos/300/${
-                                200 + (index % 3) * 50
-                            }?random=${item.wishlistItemNo}`}
+                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${
+                                item.wishlistItemNo
+                            }`}
                             alt={item.wiseSayTitle}
                             sx={{
                                 width: '100%',
@@ -78,17 +84,24 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                                 bottom: 0,
                                 left: 0,
                                 width: '100%',
-                                bgcolor: 'rgba(0, 0, 0, 0.54)',
+                                background:
+                                    'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
                                 color: 'white',
-                                padding: '10px',
+                                padding: '20px 10px 10px',
                                 transition: 'all 0.3s ease-in-out',
-                                '&:hover': {
-                                    bgcolor: 'rgba(0, 0, 0, 0.7)',
-                                },
                             }}
                         >
-                            <Typography variant="subtitle1">
+                            <Typography
+                                variant="subtitle1"
+                                sx={{ fontWeight: 'bold' }}
+                            >
                                 {item.wiseSayTitle}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={{ mt: 1, opacity: 0.8 }}
+                            >
+                                {item.wiseSayContent.substring(0, 50)}...
                             </Typography>
                         </Box>
                     </WishlistCard>
