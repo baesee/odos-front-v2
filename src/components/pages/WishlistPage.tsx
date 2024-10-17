@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
 import WishlistLoading from '../../components/wishlist/WishlistLoading';
