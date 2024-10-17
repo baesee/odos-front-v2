@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
     Box,
     Typography,
-    Button,
-    Container,
     CircularProgress,
     Grid,
-    Card,
-    CardContent,
     CardMedia,
+    Card,
 } from '@mui/material';
 import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { keyframes } from '@emotion/react';
@@ -41,43 +38,68 @@ const WishlistPage: React.FC = () => {
         useState<SlicePagingData<WishListItem> | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const observer = useRef<IntersectionObserver | null>(null);
+    const lastWishlistItemRef = useCallback(
+        (node: HTMLDivElement) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasMore) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [loading, hasMore]
+    );
 
-    const loadWishList = async (page: number = 1) => {
+    const loadWishList = useCallback(async (pageNum: number) => {
         setLoading(true);
         try {
-            const response = await fetchWishList(page);
-            setWishList(response.data);
+            const response = await fetchWishList(pageNum);
+            setWishList((prevWishList) => {
+                if (prevWishList) {
+                    return {
+                        ...response.data,
+                        list: [...prevWishList.list, ...response.data.list],
+                    };
+                }
+                return response.data;
+            });
+            setHasMore(response.data.hasNext);
         } catch (err) {
             setError('위시리스트 정보를 불러오는데 실패했습니다.');
             console.error('위시리스트 정보 로딩 오류:', err);
         } finally {
             setLoading(false);
         }
-    };
-
-    useEffect(() => {
-        loadWishList();
     }, []);
 
-    const loadMoreItems = () => {
-        if (wishList && wishList.hasNext) {
-            loadWishList(wishList.currentPageNumber + 1);
-        }
-    };
+    useEffect(() => {
+        loadWishList(page);
+    }, [page, loadWishList]);
 
     if (loading && !wishList) {
         return (
-            <Container
-                maxWidth="sm"
+            <Box
+                component="main"
                 sx={{
+                    flexGrow: 1,
                     display: 'flex',
+                    flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    padding: 2,
+                    background:
+                        'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
+                    color: 'white',
                     height: '100vh',
                 }}
             >
                 <CircularProgress />
-            </Container>
+            </Box>
         );
     }
 
@@ -187,13 +209,18 @@ const WishlistPage: React.FC = () => {
             <Box sx={{ width: '100%', maxWidth: '100%' }}>
                 <Grid container spacing={2} justifyContent="center">
                     {Array.isArray(wishList?.list) &&
-                        wishList.list.map((item) => (
+                        wishList.list.map((item, index) => (
                             <Grid
                                 item
                                 xs={12}
                                 sm={6}
                                 key={item.wishlistItemNo}
                                 sx={{ maxWidth: '400px', mt: 2 }}
+                                ref={
+                                    index === wishList.list.length - 1
+                                        ? lastWishlistItemRef
+                                        : null
+                                }
                             >
                                 <WishlistCard>
                                     <CardMedia
@@ -230,15 +257,11 @@ const WishlistPage: React.FC = () => {
                         ))}
                 </Grid>
             </Box>
-            {wishList?.hasNext && (
-                <Button
-                    variant="contained"
-                    onClick={loadMoreItems}
-                    disabled={loading}
-                    sx={{ mt: 2, mb: 2 }}
-                >
-                    {loading ? 'Loading...' : '더 보기'}
-                </Button>
+            {loading && <CircularProgress sx={{ mt: 2 }} />}
+            {!loading && !hasMore && (
+                <Typography variant="body1" sx={{ mt: 2, mb: 2 }}>
+                    조회할 데이터가 없습니다
+                </Typography>
             )}
         </Box>
     );
