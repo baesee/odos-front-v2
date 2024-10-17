@@ -17,7 +17,12 @@ const Header: React.FC = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar
+            position="static"
+            sx={{
+                backgroundColor: '#2a2a4e', // 바디 그라데이션의 시작 색상
+            }}
+        >
             <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     ODOS

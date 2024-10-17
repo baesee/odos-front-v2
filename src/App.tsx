@@ -17,6 +17,7 @@ import Onboarding from './components/Onboarding';
 import TokenRefresher from './components/TokenRefresher';
 import MyPage from './components/pages/MyPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import A2HSPrompt from './components/A2HSPrompt';
 
 const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({
     element,
@@ -85,7 +86,7 @@ const AppContent: React.FC = () => {
                     bgcolor: 'background.paper',
                     overflow: 'hidden',
                     boxShadow: '0px 0px 55px rgba(0, 0, 0, 0.7)',
-                    borderRadius: '10px',
+                    borderRadius: '0 0 10px 10px', // 상단 모서리의 둥근 처리를 제거하고 하단만 둥글게 처리
                 }}
             >
                 <Header />
@@ -106,6 +107,7 @@ const AppContent: React.FC = () => {
                 {showOnboarding && (
                     <Onboarding onComplete={handleOnboardingComplete} />
                 )}
+                <A2HSPrompt />
             </Box>
         </Router>
     );

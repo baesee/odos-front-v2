@@ -2,10 +2,17 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <link rel="icon" type="image/svg+xml" href="/public/odos_logo_64.jpg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ODOS</title>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <link rel="manifest" href="/manifest.json" />
+        <!-- safari의 경우 webmanifest의 icon 컬렉션을 무시하므로 html에 별도로 명시해줘야 함 -->
+        <link rel="apple-touch-icon" href="/public/odos_logo_192.jpg" />
+        <link rel="apple-touch-icon" href="/public/odos_logo_512.jpg" />
+        <meta name="theme-color" content="#2a2a4e" />
+        <meta name="description" content="ODOS App" />
+        <link rel="apple-touch-icon" href="/logo192.png" />
     </head>
     <body>
         <div id="root"></div>
