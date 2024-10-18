@@ -42,7 +42,7 @@ const HeartAnimation: React.FC<HeartAnimationProps> = ({ onComplete }) => {
                 }}
             >
                 {/* 하트 아이콘을 표시합니다. */}
-                <FavoriteIcon style={{ fontSize: 45, color: 'red' }} />
+                <FavoriteIcon style={{ fontSize: 45, color: '#FF8080' }} />
             </motion.div>
         </AnimatePresence>
     );
