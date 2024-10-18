@@ -31,8 +31,7 @@ const TokenRefresher: React.FC = () => {
         } catch (error) {
             console.error('토큰 디코딩 또는 갱신 중 오류 발생:', error);
             // 토큰이 유효하지 않은 경우 로그아웃 처리
-            Cookies.remove('odos_access_token');
-            Cookies.remove('odos_refresh_token');
+            logout();
             window.location.href = '/login';
         }
     }, []);

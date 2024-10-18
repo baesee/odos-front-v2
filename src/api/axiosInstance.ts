@@ -43,8 +43,7 @@ export const refreshAccessToken = async (): Promise<string | null> => {
         return response.data.accessToken;
     } catch (error) {
         console.error('액세스 토큰 갱신 실패:', error);
-        Cookies.remove('odos_access_token');
-        Cookies.remove('odos_refresh_token');
+        logout();
         window.location.href = '/login';
         return null;
     }

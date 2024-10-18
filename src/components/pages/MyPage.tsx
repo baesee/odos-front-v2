@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, Container, CircularProgress } from '@mui/material';
 import ProfileImage from '../mypage/ProfileImage';
 import Nickname from '../mypage/Nickname';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchMyPageInfo, MyPageInfo } from '../../api/myPageApi';
+import { logout } from '../../utils/auth';
 
 const MyPage: React.FC = () => {
     const navigate = useNavigate();
@@ -31,8 +31,7 @@ const MyPage: React.FC = () => {
     }, []);
 
     const handleLogout = () => {
-        Cookies.remove('odos_access_token');
-        Cookies.remove('odos_refresh_token');
+        logout(); // 새로 만든 logout 함수 호출
         setIsLoggedIn(false);
         checkLoginStatus();
         navigate('/');

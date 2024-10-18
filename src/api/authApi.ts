@@ -13,3 +13,11 @@ export const socialLogin = async (
         accessToken,
     });
 };
+
+export const socialLogout = async (
+    refreshToken: string
+): Promise<APIResponse<void>> => {
+    return await apiService.post<void>('/member/logout', {
+        refreshToken,
+    });
+};
