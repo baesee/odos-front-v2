@@ -32,12 +32,13 @@ const HeartAnimation: React.FC<HeartAnimationProps> = ({ onComplete }) => {
                 style={{
                     position: 'fixed',
                     top: '50%',
-                    left: '48%',
                     transform: 'translate(-50%, -50%)',
                     zIndex: 9999,
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    width: '100%', // 추가: 전체 너비를 사용
+                    pointerEvents: 'none', // 추가: 클릭 이벤트 방지
                 }}
             >
                 {/* 하트 아이콘을 표시합니다. */}
