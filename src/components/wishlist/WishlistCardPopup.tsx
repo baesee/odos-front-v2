@@ -1,14 +1,32 @@
 import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { WishListItem } from '../../api/wishListApi';
+import { deleteWishList } from '../../api/wishListApi'; // deleteWishList API 함수를 import 해야 합니다.
 
 interface WishlistCardPopupProps {
     item: WishListItem;
     onClose: () => void;
+    onDelete: (itemNo: number) => void;
 }
 
-const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({ item, onClose }) => {
+const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
+    item,
+    onClose,
+    onDelete,
+}) => {
+    const handleDelete = async () => {
+        try {
+            await deleteWishList(item.wishlistItemNo);
+            onDelete(item.wishlistItemNo);
+            onClose();
+        } catch (error) {
+            console.error('위시리스트 항목 삭제 실패:', error);
+            // 여기에 에러 처리 로직을 추가할 수 있습니다 (예: 사용자에게 알림)
+        }
+    };
+
     return (
         <Box
             onClick={onClose}
@@ -40,7 +58,8 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({ item, onClose }) 
                     flexDirection: 'column',
                     boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)', // 강화된 그림자 효과
                     transform: 'translateY(-10px)', // 약간 위로 올려서 더 돌출되어 보이게 함
-                    transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out', // 부드러운 전환 효과
+                    transition:
+                        'transform 0.3s ease-out, box-shadow 0.3s ease-out', // 부드러운 전환 효과
                 }}
             >
                 <IconButton
@@ -54,6 +73,18 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({ item, onClose }) 
                     }}
                 >
                     <CloseIcon />
+                </IconButton>
+                <IconButton
+                    onClick={handleDelete}
+                    sx={{
+                        position: 'absolute',
+                        top: 8,
+                        left: 8,
+                        color: 'white',
+                        zIndex: 1,
+                    }}
+                >
+                    <DeleteIcon />
                 </IconButton>
                 <Box
                     component="img"

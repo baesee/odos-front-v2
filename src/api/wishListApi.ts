@@ -21,3 +21,9 @@ export const addWishList = async (
 ): Promise<APIResponse<void>> => {
     return await apiService.post<void>('/wishlist', { wiseSayNo });
 };
+
+export const deleteWishList = async (
+    wishlistItemNo: number
+): Promise<APIResponse<void>> => {
+    return await apiService.delete<void>(`/wishlist/${wishlistItemNo}`);
+};

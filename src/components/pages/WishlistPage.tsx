@@ -46,6 +46,19 @@ const WishlistPage: React.FC = () => {
         loadWishList(page);
     }, [page, loadWishList]);
 
+    const handleDeleteItem = (itemNo: number) => {
+        if (wishList) {
+            const updatedList = wishList.list.filter(
+                (item) => item.wishlistItemNo !== itemNo
+            );
+            setWishList((prevState) => ({
+                ...prevState!,
+                list: updatedList,
+                totalCount: prevState!.totalCount - 1,
+            }));
+        }
+    };
+
     if (loading && !wishList) return <WishlistLoading />;
     if (error) return <WishlistError error={error} />;
     if (!wishList || wishList.list.length === 0) return <WishlistEmpty />;
@@ -66,7 +79,11 @@ const WishlistPage: React.FC = () => {
                 overflowY: 'auto',
             }}
         >
-            <WishlistGrid wishList={wishList} lastItemRef={lastItemRef} />
+            <WishlistGrid
+                wishList={wishList}
+                lastItemRef={lastItemRef}
+                onDeleteItem={handleDeleteItem}
+            />
             {loading && <WishlistLoading />}
         </Box>
     );

@@ -35,11 +35,13 @@ const MasonryBox = styled(Box)({
 interface WishlistGridProps {
     wishList: SlicePagingData<WishListItem[]>;
     lastItemRef: (node: HTMLDivElement | null) => void;
+    onDeleteItem: (itemNo: number) => void;
 }
 
 const WishlistGrid: React.FC<WishlistGridProps> = ({
     wishList,
     lastItemRef,
+    onDeleteItem,
 }) => {
     const [selectedItem, setSelectedItem] = useState<WishListItem | null>(null);
 
@@ -58,6 +60,11 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
     };
 
     const handleClosePopup = () => {
+        setSelectedItem(null);
+    };
+
+    const handleDeleteItem = (itemNo: number) => {
+        onDeleteItem(itemNo);
         setSelectedItem(null);
     };
 
@@ -80,8 +87,9 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                     >
                         <CardMedia
                             component="img"
-                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${item.wishlistItemNo
-                                }`}
+                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${
+                                item.wishlistItemNo
+                            }`}
                             alt={item.wiseSayTitle}
                             sx={{
                                 width: '100%',
@@ -119,7 +127,11 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                 ))}
             </Masonry>
             {selectedItem && (
-                <WishlistCardPopup item={selectedItem} onClose={handleClosePopup} />
+                <WishlistCardPopup
+                    item={selectedItem}
+                    onClose={handleClosePopup}
+                    onDelete={handleDeleteItem}
+                />
             )}
         </MasonryBox>
     );
