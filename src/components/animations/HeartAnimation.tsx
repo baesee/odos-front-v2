@@ -25,7 +25,7 @@ const HeartAnimation: React.FC<HeartAnimationProps> = ({ onComplete }) => {
                 // 컴포넌트가 사라질 때의 상태를 정의합니다.
                 exit={{ scale: 0, y: window.innerHeight * 0.44 }}
                 // 애니메이션의 지속 시간과 이징 함수를 설정합니다.
-                transition={{ duration: 3.7, ease: 'easeInOut' }}
+                transition={{ duration: 1.1, ease: 'easeInOut' }}
                 // 애니메이션이 완료되면 onComplete 함수를 호출합니다.
                 onAnimationComplete={onComplete}
                 // 스타일을 정의합니다.
