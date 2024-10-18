@@ -51,12 +51,12 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                     maxWidth: 400,
                     height: '80%',
                     backgroundColor: 'white',
-                    borderRadius: 2,
+                    borderRadius: '16px',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-                    transform: 'translateY(-10px)',
+                    boxShadow: '0 20px 40px rgba(255, 255, 255, 0.5)',
+                    transform: 'translateY(-20px)',
                     transition:
                         'transform 0.3s ease-out, box-shadow 0.3s ease-out',
                 }}
@@ -111,12 +111,16 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        maxHeight: '30%',
-                        padding: 2,
-                        background: 'rgba(0, 0, 0, 0.3)',
+                        padding: 3,
+                        background:
+                            'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%)',
                         color: 'white',
                         backdropFilter: 'blur(5px)',
                         overflowY: 'auto',
+                        maxHeight: '40%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
                         '&::-webkit-scrollbar': {
                             width: '0.4em',
                         },
@@ -130,10 +134,20 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         },
                     }}
                 >
-                    <Typography variant="h6" gutterBottom>
+                    <Typography
+                        variant="h6"
+                        gutterBottom
+                        sx={{
+                            fontWeight: 'bold',
+                            textShadow: '1px 1px 3px rgba(0,0,0,0.5)',
+                        }}
+                    >
                         {item.wiseSayTitle}
                     </Typography>
-                    <Typography variant="body1">
+                    <Typography
+                        variant="body1"
+                        sx={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
+                    >
                         {item.wiseSayContent}
                     </Typography>
                 </Box>
