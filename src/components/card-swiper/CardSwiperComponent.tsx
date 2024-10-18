@@ -6,7 +6,7 @@ import {
     convertWiseSayToCardData,
     getAdditionalWiseSayListUrl,
 } from './CardSwiperData';
-import { handleDismiss, handleFinish } from './CardSwiperHandlers';
+import { handleDismiss, handleFinish, handleSwipe } from './CardSwiperHandlers';
 import './CardSwiperCustom.css';
 import {
     fetchWiseSayList,
@@ -73,6 +73,7 @@ const CardSwiperComponent: React.FC = () => {
                 data={cardData}
                 onFinish={handleFinish}
                 onDismiss={handleDismiss}
+                onEnter={handleSwipe}
                 withRibbons
                 likeRibbonText="WISHLIST"
                 dislikeRibbonText="PASS"
