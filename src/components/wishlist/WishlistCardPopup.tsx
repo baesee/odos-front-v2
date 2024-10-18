@@ -3,7 +3,7 @@ import { Box, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { WishListItem } from '../../api/wishListApi';
-import { deleteWishList } from '../../api/wishListApi'; // deleteWishList API 함수를 import 해야 합니다.
+import { deleteWishList } from '../../api/wishListApi';
 
 interface WishlistCardPopupProps {
     item: WishListItem;
@@ -23,7 +23,6 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
             onClose();
         } catch (error) {
             console.error('위시리스트 항목 삭제 실패:', error);
-            // 여기에 에러 처리 로직을 추가할 수 있습니다 (예: 사용자에게 알림)
         }
     };
 
@@ -56,10 +55,10 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)', // 강화된 그림자 효과
-                    transform: 'translateY(-10px)', // 약간 위로 올려서 더 돌출되어 보이게 함
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                    transform: 'translateY(-10px)',
                     transition:
-                        'transform 0.3s ease-out, box-shadow 0.3s ease-out', // 부드러운 전환 효과
+                        'transform 0.3s ease-out, box-shadow 0.3s ease-out',
                 }}
             >
                 <IconButton
@@ -70,9 +69,14 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         right: 8,
                         color: 'white',
                         zIndex: 1,
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        padding: '4px',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        },
                     }}
                 >
-                    <CloseIcon />
+                    <CloseIcon fontSize="small" />
                 </IconButton>
                 <IconButton
                     onClick={handleDelete}
@@ -82,9 +86,14 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         left: 8,
                         color: 'white',
                         zIndex: 1,
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        padding: '4px',
+                        '&:hover': {
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        },
                     }}
                 >
-                    <DeleteIcon />
+                    <DeleteIcon fontSize="small" />
                 </IconButton>
                 <Box
                     component="img"
