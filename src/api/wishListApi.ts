@@ -15,3 +15,9 @@ export const fetchWishList = async (
         `/wishlist?page=${page}`
     );
 };
+
+export const addWishList = async (
+    wiseSayNo: number
+): Promise<APIResponse<void>> => {
+    return await apiService.post<void>('/wishlist', { wiseSayNo });
+};
