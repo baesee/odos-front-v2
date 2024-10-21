@@ -32,8 +32,8 @@ export const handleDismiss: CardEvent = async (
                 })
             );
         } catch (error) {
-            console.error('위시리스트 추가 실패:', error);
-            alert('위시리스트 추가에 실패했습니다.');
+            alert('로그인 후 이용해주세요.');
+            window.location.href = '/login';
         }
     }
 };
