@@ -1,5 +1,6 @@
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
+        window.location.hostname === '192.168.0.19' ||
         window.location.hostname === '[::1]' ||
         window.location.hostname.match(
             /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
@@ -25,7 +26,7 @@ export function register(config?: Config) {
         window.addEventListener('load', () => {
             const swUrl = `${
                 import.meta.env.VITE_API_URL + import.meta.env.BASE_URL
-            }service-worker.js`;
+            }firebase-messaging-sw.js`;
 
             if (isLocalhost) {
                 checkValidServiceWorker(swUrl, config);
