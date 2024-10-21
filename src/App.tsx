@@ -18,6 +18,8 @@ import TokenRefresher from './components/TokenRefresher';
 import MyPage from './components/pages/MyPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import A2HSPrompt from './components/A2HSPrompt';
+import { messaging } from './firebase-config';
+import { getToken } from 'firebase/messaging';
 
 const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({
     element,
@@ -65,6 +67,27 @@ const AppContent: React.FC = () => {
         }
 
         checkLoginStatus();
+
+        // FCM 권한 요청 및 토큰 획득
+        const requestNotificationPermission = async () => {
+            console.log('권한 요청 중...');
+            try {
+                const permission = await Notification.requestPermission();
+                if (permission === 'granted') {
+                    const token = await getToken(messaging, {
+                        vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
+                    });
+                    console.log('FCM 토큰:', token);
+                    // 여기서 토큰을 서버로 전송하거나 필요한 작업을 수행할 수 있습니다.
+                } else {
+                    console.log('알림 권한이 거부되었습니다.');
+                }
+            } catch (error) {
+                console.error('알림 권한 요청 중 오류 발생:', error);
+            }
+        };
+
+        requestNotificationPermission();
     }, [checkLoginStatus]);
 
     const handleOnboardingComplete = () => {
