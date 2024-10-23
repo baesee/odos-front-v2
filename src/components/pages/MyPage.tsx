@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { fetchMyPageInfo, MyPageInfo } from '../../api/myPageApi';
 import { logout } from '../../utils/auth';
+import { useContentHeight } from '../../utils/useContentHeight';
 
 const MyPage: React.FC = () => {
+    const contentHeight = useContentHeight();
     const navigate = useNavigate();
     const { setIsLoggedIn, checkLoginStatus } = useAuth();
     const [myPageInfo, setMyPageInfo] = useState<MyPageInfo | null>(null);
@@ -61,7 +63,7 @@ const MyPage: React.FC = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    height: '100vh',
+                    height: `${contentHeight}px`,
                 }}
             >
                 <Typography color="error">{error}</Typography>
@@ -73,13 +75,13 @@ const MyPage: React.FC = () => {
         <Box
             component="main"
             sx={{
-                flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
+                height: `${contentHeight}px`,
                 padding: '2rem 0',
                 paddingBottom: '20px', // 하단에서 20px 위로 올림
             }}

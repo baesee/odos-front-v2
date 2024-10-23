@@ -1,13 +1,15 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import CardSwiperComponent from '../card-swiper/CardSwiperComponent';
+import { useContentHeight } from '../../utils/useContentHeight';
 
 const Home: React.FC = () => {
+    const contentHeight = useContentHeight();
+
     return (
         <Box
             component="main"
             sx={{
-                flexGrow: 1,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
@@ -15,8 +17,9 @@ const Home: React.FC = () => {
                 alignItems: 'center',
                 padding: 2,
                 background:
-                    'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)', // 조금 더 밝은 그라데이션 배경
+                    'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'black',
+                height: `${contentHeight}px`,
             }}
         >
             <CardSwiperComponent />

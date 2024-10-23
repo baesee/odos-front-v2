@@ -5,6 +5,7 @@ import KakaoLoginButton from '../../assets/kakao_login_medium_wide.png';
 import { socialLogin } from '../../api/authApi';
 import Cookies from 'js-cookie';
 import { useAuth } from '../../contexts/AuthContext';
+import { useContentHeight } from '../../utils/useContentHeight';
 
 declare global {
     interface Window {
@@ -22,6 +23,7 @@ declare global {
 }
 
 const LoginPage: React.FC = () => {
+    const contentHeight = useContentHeight();
     const navigate = useNavigate();
     const { setIsLoggedIn, checkLoginStatus } = useAuth();
 
@@ -79,7 +81,7 @@ const LoginPage: React.FC = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100vh',
+                height: `${contentHeight}px`,
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
             }}

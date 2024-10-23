@@ -1,12 +1,14 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { useContentHeight } from '../../utils/useContentHeight';
 
 const MorePage: React.FC = () => {
+    const contentHeight = useContentHeight();
+
     return (
         <Box
             component="main"
             sx={{
-                flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -15,6 +17,7 @@ const MorePage: React.FC = () => {
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
+                height: `${contentHeight}px`,
             }}
         >
             <Typography variant="h4">More</Typography>
