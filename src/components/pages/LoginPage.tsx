@@ -36,8 +36,28 @@ const LoginPage: React.FC = () => {
             success: async (authObj) => {
                 try {
                     const response = await socialLogin(authObj.access_token);
-                    Cookies.set('odos_access_token', response.data.accessToken, { expires: 1 / 24 });
-                    Cookies.set('odos_refresh_token', response.data.refreshToken, { expires: 90 });
+                    Cookies.set(
+                        'odos_access_token',
+                        response.data.accessToken,
+                        {
+                            path: '/',
+                            secure: true,
+                            domain: 'odos.today',
+                            sameSite: 'none',
+                            expires: 1 / 24,
+                        }
+                    );
+                    Cookies.set(
+                        'odos_refresh_token',
+                        response.data.refreshToken,
+                        {
+                            path: '/',
+                            secure: true,
+                            domain: 'odos.today',
+                            sameSite: 'none',
+                            expires: 90,
+                        }
+                    );
                     setIsLoggedIn(true);
                     checkLoginStatus();
                     navigate('/');

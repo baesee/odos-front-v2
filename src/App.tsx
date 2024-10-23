@@ -18,8 +18,8 @@ import TokenRefresher from './components/TokenRefresher';
 import MyPage from './components/pages/MyPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import A2HSPrompt from './components/A2HSPrompt';
-import { messaging } from './firebase-config';
 import { getToken } from 'firebase/messaging';
+import { initializeMessaging } from './firebase-config';
 
 const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({
     element,
@@ -53,9 +53,21 @@ const AppContent: React.FC = () => {
 
             if (!cookieValue) {
                 cookieValue = generateUniqueId();
-                Cookies.set(cookieName, cookieValue, { expires: 365 });
+                Cookies.set(cookieName, cookieValue, {
+                    path: '/',
+                    secure: true,
+                    domain: 'odos.today',
+                    sameSite: 'none',
+                    expires: 365,
+                });
             } else {
-                Cookies.set(cookieName, cookieValue, { expires: 365 });
+                Cookies.set(cookieName, cookieValue, {
+                    path: '/',
+                    secure: true,
+                    domain: 'odos.today',
+                    sameSite: 'none',
+                    expires: 365,
+                });
             }
         };
 
@@ -72,15 +84,20 @@ const AppContent: React.FC = () => {
         const requestNotificationPermission = async () => {
             console.log('권한 요청 중...');
             try {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    const token = await getToken(messaging, {
-                        vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
-                    });
-                    console.log('FCM 토큰:', token);
-                    // 여기서 토큰을 서버로 전송하거나 필요한 작업을 수행할 수 있습니다.
+                const messaging = await initializeMessaging();
+                if (messaging) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        const token = await getToken(messaging, {
+                            vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
+                        });
+                        console.log('FCM 토큰:', token);
+                        // 여기서 토큰을 서버로 전송하거나 필요한 작업을 수행할 수 있습니다.
+                    } else {
+                        console.log('알림 권한이 거부되었습니다.');
+                    }
                 } else {
-                    console.log('알림 권한이 거부되었습니다.');
+                    console.log('Firebase Messaging이 지원되지 않습니다.');
                 }
             } catch (error) {
                 console.error('알림 권한 요청 중 오류 발생:', error);

@@ -27,7 +27,6 @@ const TokenRefresher: React.FC = () => {
 
             if (expiryTime - currentTime < TOKEN_EXPIRY_THRESHOLD) {
                 await refreshAccessToken();
-                console.log(' 리프레시 토큰 처리 완료');
             }
         } catch (error) {
             console.error('토큰 디코딩 또는 갱신 중 오류 발생:', error);
