@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    base: '/', // 또는 실제 배포 경로에 맞게 설정
     plugins: [
         react(),
         VitePWA({

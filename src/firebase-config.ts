@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getMessaging } from 'firebase/messaging';
+import { getMessaging, isSupported } from 'firebase/messaging';
 
 const firebaseConfig = {
     // Firebase 구성 정보를 여기에 입력하세요
@@ -13,4 +13,17 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const messaging = getMessaging(app);
+
+// messaging 초기화를 비동기 함수로 변경
+export const initializeMessaging = async () => {
+    try {
+        if (await isSupported()) {
+            return getMessaging(app);
+        }
+        console.log("This browser doesn't support Firebase messaging.");
+        return null;
+    } catch (err) {
+        console.error('Failed to initialize Firebase messaging:', err);
+        return null;
+    }
+};

@@ -13,10 +13,9 @@ type Config = {
 };
 
 export function register(config?: Config) {
-    console.log(import.meta.env.VITE_API_URL);
     if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         const publicUrl = new URL(
-            import.meta.env.VITE_API_URL + import.meta.env.BASE_URL,
+            import.meta.env.VITE_DOMAIN_URL + import.meta.env.BASE_URL,
             window.location.href
         );
         if (publicUrl.origin !== window.location.origin) {
@@ -25,7 +24,7 @@ export function register(config?: Config) {
 
         window.addEventListener('load', () => {
             const swUrl = `${
-                import.meta.env.VITE_API_URL + import.meta.env.BASE_URL
+                import.meta.env.VITE_DOMAIN_URL
             }firebase-messaging-sw.js`;
 
             if (isLocalhost) {
@@ -49,14 +48,10 @@ function registerValidSW(swUrl: string, config?: Config) {
                 installingWorker.onstatechange = () => {
                     if (installingWorker.state === 'installed') {
                         if (navigator.serviceWorker.controller) {
-                            console.log(
-                                'New content is available; please refresh.'
-                            );
                             if (config && config.onUpdate) {
                                 config.onUpdate(registration);
                             }
                         } else {
-                            console.log('Content is cached for offline use.');
                             if (config && config.onSuccess) {
                                 config.onSuccess(registration);
                             }

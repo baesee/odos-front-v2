@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
 import WishlistLoading from '../../components/wishlist/WishlistLoading';
@@ -9,8 +9,9 @@ import WishlistGrid from '../../components/wishlist/WishlistGrid';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
 const WishlistPage: React.FC = () => {
-    const [wishList, setWishList] =
-        useState<SlicePagingData<WishListItem> | null>(null);
+    const [wishList, setWishList] = useState<SlicePagingData<
+        WishListItem[]
+    > | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState(1);
@@ -24,10 +25,27 @@ const WishlistPage: React.FC = () => {
                 if (prevWishList) {
                     return {
                         ...response.data,
-                        list: [...prevWishList.list, ...response.data.list],
+                        list: Array.isArray(prevWishList.list)
+                            ? [
+                                  ...prevWishList.list,
+                                  ...(Array.isArray(response.data.list)
+                                      ? response.data.list
+                                      : [response.data.list]),
+                              ]
+                            : [
+                                  prevWishList.list,
+                                  ...(Array.isArray(response.data.list)
+                                      ? response.data.list
+                                      : [response.data.list]),
+                              ],
                     };
                 }
-                return response.data;
+                return {
+                    ...response.data,
+                    list: Array.isArray(response.data.list)
+                        ? response.data.list
+                        : [response.data.list],
+                };
             });
             setHasMore(response.data.hasNext);
         } catch (err) {

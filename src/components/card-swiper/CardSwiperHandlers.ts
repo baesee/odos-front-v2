@@ -5,8 +5,8 @@ import React from 'react';
 import HeartAnimation from '../animations/HeartAnimation';
 
 export const handleDismiss: CardEvent = async (
-    el,
-    meta,
+    _el,
+    _meta,
     id: number | string,
     action
 ) => {
