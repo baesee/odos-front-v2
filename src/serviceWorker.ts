@@ -25,7 +25,7 @@ export function register(config?: Config) {
         window.addEventListener('load', () => {
             const swUrl = `${
                 import.meta.env.VITE_DOMAIN_URL
-            }firebase-messaging-sw.js`;
+            }/firebase-messaging-sw.js`;
 
             if (isLocalhost) {
                 checkValidServiceWorker(swUrl, config);
