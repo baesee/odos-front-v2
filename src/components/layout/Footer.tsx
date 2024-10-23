@@ -19,7 +19,6 @@ const Footer: React.FC = () => {
         <Box
             component="footer"
             sx={{
-                mt: 'auto',
                 backgroundColor: (theme) => theme.palette.grey[200],
             }}
         >

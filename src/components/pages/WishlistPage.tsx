@@ -7,8 +7,10 @@ import WishlistError from '../../components/wishlist/WishlistError';
 import WishlistEmpty from '../../components/wishlist/WishlistEmpty';
 import WishlistGrid from '../../components/wishlist/WishlistGrid';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import { useContentHeight } from '../../utils/useContentHeight';
 
 const WishlistPage: React.FC = () => {
+    const contentHeight = useContentHeight();
     const [wishList, setWishList] = useState<SlicePagingData<
         WishListItem[]
     > | null>(null);
@@ -85,7 +87,6 @@ const WishlistPage: React.FC = () => {
         <Box
             component="main"
             sx={{
-                flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
@@ -94,6 +95,7 @@ const WishlistPage: React.FC = () => {
                 background:
                     'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
                 color: 'white',
+                height: `${contentHeight}px`,
                 overflowY: 'auto',
             }}
         >
