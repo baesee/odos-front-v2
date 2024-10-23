@@ -8,7 +8,7 @@ const useInfiniteScroll = (
     const observer = useRef<IntersectionObserver | null>(null);
 
     const lastItemRef = useCallback(
-        (node: HTMLDivElement) => {
+        (node: HTMLDivElement | null) => {
             if (loading) return;
             if (observer.current) observer.current.disconnect();
             observer.current = new IntersectionObserver((entries) => {

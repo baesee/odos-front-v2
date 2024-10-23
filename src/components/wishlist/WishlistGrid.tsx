@@ -80,7 +80,8 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                         key={`${item.wishlistItemNo}-${item.wiseSayNo}-${index}`}
                         ref={
                             index === wishList.list.length - 1
-                                ? (node) => lastItemRef(node)
+                                ? (node: HTMLDivElement | null) =>
+                                      lastItemRef(node)
                                 : null
                         }
                         onClick={() => handleCardClick(item)}

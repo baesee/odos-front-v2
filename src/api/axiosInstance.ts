@@ -5,6 +5,7 @@ import axios, {
 } from 'axios';
 import Cookies from 'js-cookie';
 import { apiService } from './apiService';
+import { logout } from '../utils/auth';
 
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL + import.meta.env.VITE_BASE_URL,
