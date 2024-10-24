@@ -112,7 +112,10 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                         >
                             <Typography
                                 variant="subtitle1"
-                                sx={{ fontWeight: 'bold', fontSize: '0.9rem' }} // Reduced font size
+                                sx={{
+                                    fontFamily:
+                                        'NanumSquareRoundEB, sans-serif',
+                                }} // Reduced font size
                             >
                                 {item.wiseSayTitle}
                             </Typography>

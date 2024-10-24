@@ -5,7 +5,7 @@ import {
     Routes,
     Navigate,
 } from 'react-router-dom';
-import { Box, CssBaseline } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import Cookies from 'js-cookie';
 import Header from './components/layout/Header';
 import Home from './components/pages/Home';
@@ -20,6 +20,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import A2HSPrompt from './components/A2HSPrompt';
 import { getToken } from 'firebase/messaging';
 import { initializeMessaging } from './firebase-config';
+import theme from './theme';
 
 const ProtectedRoute: React.FC<{ element: React.ReactElement }> = ({
     element,
@@ -113,43 +114,47 @@ const AppContent: React.FC = () => {
     };
 
     return (
-        <Router>
-            <CssBaseline />
-            <TokenRefresher />
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100vh',
-                    maxWidth: '500px',
-                    margin: '0 auto',
-                    bgcolor: 'background.paper',
-                    overflow: 'hidden',
-                    boxShadow: '0px 0px 55px rgba(0, 0, 0, 0.7)',
-                    borderRadius: '0 0 10px 10px', // 상단 모서리의 둥근 처리를 제거하고 하단만 둥글게 처리
-                }}
-            >
-                <Header />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route
-                        path="/wishlist"
-                        element={<ProtectedRoute element={<WishlistPage />} />}
-                    />
-                    <Route path="/more" element={<MorePage />} />
-                    <Route
-                        path="/mypage"
-                        element={<ProtectedRoute element={<MyPage />} />}
-                    />
-                    <Route path="/login" element={<LoginPage />} />
-                </Routes>
-                <Footer />
-                {showOnboarding && (
-                    <Onboarding onComplete={handleOnboardingComplete} />
-                )}
-                <A2HSPrompt />
-            </Box>
-        </Router>
+        <ThemeProvider theme={theme}>
+            <Router>
+                <CssBaseline />
+                <TokenRefresher />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100vh',
+                        maxWidth: '500px',
+                        margin: '0 auto',
+                        bgcolor: 'background.paper',
+                        overflow: 'hidden',
+                        boxShadow: '0px 0px 55px rgba(0, 0, 0, 0.7)',
+                        borderRadius: '0 0 10px 10px', // 상단 모서리의 둥근 처리를 제거하고 하단만 둥글게 처리
+                    }}
+                >
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route
+                            path="/wishlist"
+                            element={
+                                <ProtectedRoute element={<WishlistPage />} />
+                            }
+                        />
+                        <Route path="/more" element={<MorePage />} />
+                        <Route
+                            path="/mypage"
+                            element={<ProtectedRoute element={<MyPage />} />}
+                        />
+                        <Route path="/login" element={<LoginPage />} />
+                    </Routes>
+                    <Footer />
+                    {showOnboarding && (
+                        <Onboarding onComplete={handleOnboardingComplete} />
+                    )}
+                    <A2HSPrompt />
+                </Box>
+            </Router>
+        </ThemeProvider>
     );
 };
 
