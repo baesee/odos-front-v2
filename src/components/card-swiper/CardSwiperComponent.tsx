@@ -92,7 +92,7 @@ const CardSwiperComponent: React.FC = () => {
                     >
                         <Box component={'img'} width={250} src={EmptyState} />
                         <Typography variant={'subtitle2'} color="white">
-                            모든 카드를 다 보셨습니다!
+                            카드를 모두 보았습니다
                         </Typography>
                         <Button
                             variant="contained"

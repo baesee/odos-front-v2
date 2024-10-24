@@ -36,7 +36,11 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                 },
             }}
         >
-            <Typography variant="h5" gutterBottom>
+            <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ fontFamily: 'NanumSquareRoundEB, sans-serif' }}
+            >
                 {title}
             </Typography>
             <Typography variant="body1">{description}</Typography>
