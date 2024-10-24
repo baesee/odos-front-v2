@@ -3,20 +3,20 @@
     "name": "ODOS | OneDay OneShock",
     "icons": [
         {
-            "src": "odos_logo_64.jpg",
-            "sizes": "64x64 32x32 24x24 16x16",
+            "src": "public/odos_logo_64.jpg",
+            "sizes": "64x64",
             "type": "image/jpg"
         },
         {
-            "src": "odos_logo_192.jpg",
+            "src": "public/odos_logo_192.jpg",
             "type": "image/jpg",
-            "sizes": "192x192",
-            "purpose": "maskable"
+            "sizes": "192x192"
         },
         {
-            "src": "odos_logo_512.jpg",
+            "src": "public/odos_logo_512.jpg",
             "type": "image/jpg",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "maskable"
         }
     ],
     "start_url": "/",
