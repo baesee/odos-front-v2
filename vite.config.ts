@@ -18,9 +18,9 @@ export default defineConfig({
                 enabled: true,
             },
             includeAssets: [
-                'odos_logo_64.jpg',
-                'odos_logo_192.jpg',
-                'odos_logo_512.jpg',
+                'public/odos_logo_64.jpg',
+                'public/odos_logo_192.jpg',
+                'public/odos_logo_512.jpg',
             ],
             manifest: {
                 name: 'ODOS App',
@@ -29,12 +29,12 @@ export default defineConfig({
                 theme_color: '#ffffff',
                 icons: [
                     {
-                        src: 'odos_logo_192.jpg',
+                        src: 'public/odos_logo_192.jpg',
                         sizes: '192x192',
                         type: 'image/jpg',
                     },
                     {
-                        src: 'odos_logo_512.jpg',
+                        src: 'public/odos_logo_512.jpg',
                         sizes: '512x512',
                         type: 'image/jpg',
                     },
