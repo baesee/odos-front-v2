@@ -6,6 +6,9 @@ export interface WiseSay {
     wiseSayNo: number;
     title: string;
     content: string;
+    videoLink: string;
+    videoSource: string;
+    representativeTag: string;
     attachmentFileNo: number | null;
 }
 
@@ -18,6 +21,9 @@ export const convertWiseSayToCardData = (wiseSay: WiseSay): CardData => ({
     content: React.createElement(CardSwiperContent, {
         title: wiseSay.title,
         description: wiseSay.content,
+        videoLink: wiseSay.videoLink,
+        videoSource: wiseSay.videoSource,
+        representativeTag: wiseSay.representativeTag,
     }),
 });
 

@@ -4,11 +4,17 @@ import { Typography, Box } from '@mui/material';
 interface CardSwiperContentProps {
     title: string;
     description: string;
+    videoLink: string;
+    videoSource: string;
+    representativeTag: string;
 }
 
 const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
     title,
     description,
+    videoLink,
+    videoSource,
+    representativeTag,
 }) => {
     return (
         <Box
@@ -36,14 +42,30 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                 },
             }}
         >
-            <Typography
-                variant="h5"
-                gutterBottom
-                sx={{ fontFamily: 'NanumSquareRoundEB, sans-serif' }}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
             >
-                {title}
-            </Typography>
-            <Typography variant="body1">{description}</Typography>
+                <Typography
+                    variant="h5"
+                    sx={{ fontFamily: 'NanumSquareRoundEB, sans-serif' }}
+                >
+                    {title}
+                </Typography>
+                {videoLink && (
+                    <Typography variant="body2" sx={{ ml: 1 }}>
+                        {videoSource}
+                    </Typography>
+                )}
+            </Box>
+            {!videoLink && (
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                    {description}
+                </Typography>
+            )}
         </Box>
     );
 };
