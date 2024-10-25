@@ -26,7 +26,7 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                         top: 0,
                         left: 0,
                         right: 0,
-                        bottom: 0,
+                        bottom: '3rem',
                     }}
                 >
                     <YouTubeEmbed videoId={videoLink} />
