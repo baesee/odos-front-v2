@@ -77,7 +77,6 @@ const WishlistPage: React.FC = () => {
 
     const handleDeleteItem = async (itemNo: number) => {
         try {
-            await deleteWishList(itemNo);
             setWishList((prevWishList) => {
                 if (prevWishList) {
                     return {
