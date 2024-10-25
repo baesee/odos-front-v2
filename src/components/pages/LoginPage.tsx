@@ -42,10 +42,10 @@ const LoginPage: React.FC = () => {
                         'odos_access_token',
                         response.data.accessToken,
                         {
-                            // path: '/',
-                            // secure: true,
-                            // domain: 'odos.today',
-                            // sameSite: 'none',
+                            path: '/',
+                            secure: true,
+                            domain: 'odos.today',
+                            sameSite: 'none',
                             expires: 1 / 24,
                         }
                     );
@@ -53,10 +53,10 @@ const LoginPage: React.FC = () => {
                         'odos_refresh_token',
                         response.data.refreshToken,
                         {
-                            // path: '/',
-                            // secure: true,
-                            // domain: 'odos.today',
-                            // sameSite: 'none',
+                            path: '/',
+                            secure: true,
+                            domain: 'odos.today',
+                            sameSite: 'none',
                             expires: 90,
                         }
                     );
