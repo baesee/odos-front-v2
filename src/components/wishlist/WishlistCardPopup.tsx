@@ -4,6 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { WishListItem } from '../../api/wishListApi';
 import { deleteWishList } from '../../api/wishListApi';
+import YouTubeEmbed from '../card-swiper/YouTubeEmbed';
 
 interface WishlistCardPopupProps {
     item: WishListItem;
@@ -95,6 +96,19 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                 >
                     <DeleteIcon fontSize="small" />
                 </IconButton>
+                {item.wiseSayVideoLink && (
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: '3.5rem',
+                        }}
+                    >
+                        <YouTubeEmbed videoId={item.wiseSayVideoLink} />
+                    </Box>
+                )}
                 <Box
                     component="img"
                     src={`https://picsum.photos/400/600?random=${item.wiseSayNo}`}
