@@ -31,14 +31,21 @@ const WishlistPage: React.FC = () => {
                 const response = await fetchWishList(pageNum);
                 setWishList((prevWishList) => {
                     if (prevWishList) {
+                        const newList = Array.isArray(response.data.list)
+                            ? response.data.list
+                            : [response.data.list];
+                        // 중복 제거를 위해 Set 사용
+                        const uniqueList = Array.from(
+                            new Set(
+                                [...prevWishList.list, ...newList].map(
+                                    JSON.stringify
+                                )
+                            ),
+                            JSON.parse
+                        );
                         return {
                             ...response.data,
-                            list: [
-                                ...prevWishList.list,
-                                ...(Array.isArray(response.data.list)
-                                    ? response.data.list
-                                    : [response.data.list]),
-                            ],
+                            list: uniqueList,
                         };
                     }
                     return {
