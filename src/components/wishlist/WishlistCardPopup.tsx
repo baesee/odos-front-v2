@@ -111,16 +111,13 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        padding: 3,
+                        maxHeight: '30%',
+                        padding: 2,
                         background:
                             'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%)',
                         color: 'white',
                         backdropFilter: 'blur(5px)',
                         overflowY: 'auto',
-                        maxHeight: '40%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'flex-end',
                         '&::-webkit-scrollbar': {
                             width: '0.4em',
                         },
@@ -134,21 +131,52 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         },
                     }}
                 >
-                    <Typography
-                        variant="h5"
-                        gutterBottom
+                    <Box
                         sx={{
-                            fontFamily: 'NanumSquareRoundEB, sans-serif',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
                         }}
                     >
-                        {item.wiseSayTitle}
-                    </Typography>
-                    <Typography
-                        variant="body1"
-                        sx={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
-                    >
-                        {item.wiseSayContent}
-                    </Typography>
+                        <Typography
+                            variant="h5"
+                            gutterBottom
+                            sx={{
+                                fontFamily: 'NanumSquareRoundEB, sans-serif',
+                            }}
+                        >
+                            {item.wiseSayTitle}
+                        </Typography>
+                        <Box sx={{ textAlign: 'right' }}>
+                            {item.wiseSayVideoLink && (
+                                <Typography
+                                    variant="body2"
+                                    sx={{ fontSize: '0.8rem' }}
+                                >
+                                    출처 : {item.wiseSayVideoLink}
+                                </Typography>
+                            )}
+                            {item.wiseSayRepresentativeTag && (
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: 'rgba(255, 255, 255, 0.7)',
+                                        fontSize: '0.7rem',
+                                    }}
+                                >
+                                    #{item.wiseSayRepresentativeTag}
+                                </Typography>
+                            )}
+                        </Box>
+                    </Box>
+                    {!item.wiseSayVideoLink && (
+                        <Typography
+                            variant="body1"
+                            sx={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
+                        >
+                            {item.wiseSayContent}
+                        </Typography>
+                    )}
                 </Box>
             </Box>
         </Box>
