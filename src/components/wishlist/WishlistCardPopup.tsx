@@ -153,7 +153,7 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                                     variant="body2"
                                     sx={{ fontSize: '0.8rem' }}
                                 >
-                                    출처 : {item.wiseSayVideoLink}
+                                    출처 : {item.wiseSayVideoSource}
                                 </Typography>
                             )}
                             {item.wiseSayRepresentativeTag && (
