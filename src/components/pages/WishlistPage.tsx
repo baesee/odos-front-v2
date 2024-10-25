@@ -33,10 +33,20 @@ const WishlistPage: React.FC = () => {
                     if (prevWishList) {
                         return {
                             ...response.data,
-                            list: [...prevWishList.list, ...response.data.list],
+                            list: [
+                                ...prevWishList.list,
+                                ...(Array.isArray(response.data.list)
+                                    ? response.data.list
+                                    : [response.data.list]),
+                            ],
                         };
                     }
-                    return response.data;
+                    return {
+                        ...response.data,
+                        list: Array.isArray(response.data.list)
+                            ? response.data.list
+                            : [response.data.list],
+                    };
                 });
                 setHasMore(response.data.hasNext);
                 setPage(pageNum);
@@ -52,7 +62,7 @@ const WishlistPage: React.FC = () => {
 
     useEffect(() => {
         loadWishList(1);
-    }, []);
+    }, [loadWishList]);
 
     const { lastItemRef } = useInfiniteScroll(loading, hasMore, () =>
         loadWishList(page + 1)
