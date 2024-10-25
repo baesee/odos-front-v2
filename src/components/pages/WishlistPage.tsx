@@ -5,11 +5,7 @@ import WishlistGrid from '../wishlist/WishlistGrid';
 import WishlistEmpty from '../wishlist/WishlistEmpty';
 import WishlistLoading from '../wishlist/WishlistLoading';
 import WishlistError from '../wishlist/WishlistError';
-import {
-    fetchWishList,
-    deleteWishList,
-    WishListItem,
-} from '../../api/wishListApi';
+import { fetchWishList, WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 
@@ -34,18 +30,14 @@ const WishlistPage: React.FC = () => {
                         const newList = Array.isArray(response.data.list)
                             ? response.data.list
                             : [response.data.list];
-                        // 중복 제거를 위해 Set 사용
-                        const uniqueList = Array.from(
-                            new Set(
-                                [...prevWishList.list, ...newList].map(
-                                    JSON.stringify
-                                )
-                            ),
-                            JSON.parse
-                        );
+                        // 중복 제거를 위해 Map 사용
+                        const uniqueMap = new Map<number, WishListItem>();
+                        [...prevWishList.list, ...newList].forEach((item) => {
+                            uniqueMap.set(item.wishlistItemNo, item);
+                        });
                         return {
                             ...response.data,
-                            list: uniqueList,
+                            list: Array.from(uniqueMap.values()),
                         };
                     }
                     return {
