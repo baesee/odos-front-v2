@@ -72,7 +72,12 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                         <WishlistCard onClick={() => handleCardClick(item)}>
                             <CardMedia
                                 component="img"
-                                image={`https://picsum.photos/300/200?random=${item.wishlistItemNo}`}
+                                height={'150'}
+                                image={
+                                    item.wiseSayVideoLink
+                                        ? `https://img.youtube.com/vi/${item.wiseSayVideoLink}/mqdefault.jpg`
+                                        : `https://picsum.photos/300/200?random=${item.wishlistItemNo}`
+                                }
                                 alt={item.wiseSayTitle}
                                 sx={{
                                     width: '100%',
