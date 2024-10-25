@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Box, Typography, CardMedia } from '@mui/material';
+import {
+    Box,
+    Typography,
+    CardMedia,
+    Grid,
+    CircularProgress,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
-import Masonry from 'react-masonry-css';
 import WishlistCardPopup from './WishlistCardPopup';
 
 const WishlistCard = styled(Box)(({ theme }) => ({
@@ -20,40 +25,22 @@ const WishlistCard = styled(Box)(({ theme }) => ({
     },
 }));
 
-const MasonryBox = styled(Box)({
-    '.my-masonry-grid': {
-        display: 'flex',
-        marginLeft: -10, // Reduced gutter size for smaller screens
-        width: 'auto',
-    },
-    '.my-masonry-grid_column': {
-        paddingLeft: 10, // Reduced gutter size for smaller screens
-        backgroundClip: 'padding-box',
-    },
-});
-
 interface WishlistGridProps {
     wishList: SlicePagingData<WishListItem[]>;
-    lastItemRef: (node: HTMLDivElement | null) => void;
     onDeleteItem: (itemNo: number) => void;
+    lastItemRef: (node: HTMLDivElement | null) => void;
+    isLoading: boolean;
+    hasMore: boolean;
 }
 
 const WishlistGrid: React.FC<WishlistGridProps> = ({
     wishList,
-    lastItemRef,
     onDeleteItem,
+    lastItemRef,
+    isLoading,
+    hasMore,
 }) => {
     const [selectedItem, setSelectedItem] = useState<WishListItem | null>(null);
-
-    const breakpointColumnsObj = {
-        default: 2,
-        500: 2, // Changed to 2 columns for screens 500px and below
-    };
-
-    // Function to generate random height for images
-    const getRandomHeight = () => {
-        return Math.floor(Math.random() * (300 - 200 + 1) + 200); // Reduced max height for smaller screens
-    };
 
     const handleCardClick = (item: WishListItem) => {
         setSelectedItem(item);
@@ -69,67 +56,76 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
     };
 
     return (
-        <MasonryBox sx={{ width: '100%', maxWidth: '100%' }}>
-            <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column"
-            >
+        <Box sx={{ width: '100%', maxWidth: '100%' }}>
+            <Grid container spacing={2}>
                 {wishList.list.map((item: WishListItem, index: number) => (
-                    <WishlistCard
+                    <Grid
+                        item
+                        xs={6}
                         key={`${item.wishlistItemNo}-${item.wiseSayNo}-${index}`}
                         ref={
                             index === wishList.list.length - 1
-                                ? (node: HTMLDivElement | null) =>
-                                      lastItemRef(node)
+                                ? lastItemRef
                                 : null
                         }
-                        onClick={() => handleCardClick(item)}
                     >
-                        <CardMedia
-                            component="img"
-                            image={`https://picsum.photos/300/${getRandomHeight()}?random=${
-                                item.wishlistItemNo
-                            }`}
-                            alt={item.wiseSayTitle}
-                            sx={{
-                                width: '100%',
-                                objectFit: 'cover',
-                            }}
-                        />
-                        <Box
-                            sx={{
-                                position: 'absolute',
-                                bottom: 0,
-                                left: 0,
-                                width: '100%',
-                                background:
-                                    'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
-                                color: 'white',
-                                padding: '20px 10px 10px',
-                                transition: 'all 0.3s ease-in-out',
-                            }}
-                        >
-                            <Typography
-                                variant="subtitle1"
+                        <WishlistCard onClick={() => handleCardClick(item)}>
+                            <CardMedia
+                                component="img"
+                                image={`https://picsum.photos/300/200?random=${item.wishlistItemNo}`}
+                                alt={item.wiseSayTitle}
                                 sx={{
-                                    fontFamily:
-                                        'NanumSquareRoundEB, sans-serif',
-                                }} // Reduced font size
+                                    width: '100%',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                            <Box
+                                sx={{
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    background:
+                                        'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0))',
+                                    color: 'white',
+                                    padding: '20px 10px 10px',
+                                    transition: 'all 0.3s ease-in-out',
+                                }}
                             >
-                                {item.wiseSayTitle}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={{ mt: 1, opacity: 0.8, fontSize: '0.8rem' }} // Reduced font size
-                            >
-                                {item.wiseSayContent.substring(0, 30)}...{' '}
-                                {/* Reduced content length */}
-                            </Typography>
-                        </Box>
-                    </WishlistCard>
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                        fontFamily:
+                                            'NanumSquareRoundEB, sans-serif',
+                                    }}
+                                >
+                                    {item.wiseSayTitle}
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        mt: 1,
+                                        opacity: 0.8,
+                                        fontSize: '0.8rem',
+                                    }}
+                                >
+                                    {item.wiseSayContent.substring(0, 30)}...
+                                </Typography>
+                            </Box>
+                        </WishlistCard>
+                    </Grid>
                 ))}
-            </Masonry>
+            </Grid>
+            {isLoading && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+                    <CircularProgress />
+                </Box>
+            )}
+            {!isLoading && hasMore && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+                    <Typography>스크롤하여 더 많은 항목 로드</Typography>
+                </Box>
+            )}
             {selectedItem && (
                 <WishlistCardPopup
                     item={selectedItem}
@@ -137,7 +133,7 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                     onDelete={handleDeleteItem}
                 />
             )}
-        </MasonryBox>
+        </Box>
     );
 };
 

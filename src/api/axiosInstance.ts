@@ -40,10 +40,10 @@ export const refreshAccessToken = async (): Promise<string | null> => {
 
         Cookies.set('odos_access_token', response.data.accessToken, {
             expires: 1 / 24,
-            path: '/',
-            secure: true,
-            domain: 'odos.today',
-            sameSite: 'none',
+            // path: '/',
+            // secure: true,
+            // domain: 'odos.today',
+            // sameSite: 'none',
         }); // 1시간 후 만료
         return response.data.accessToken;
     } catch (error) {

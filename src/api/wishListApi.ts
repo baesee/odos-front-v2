@@ -10,8 +10,8 @@ export interface WishListItem {
 
 export const fetchWishList = async (
     page: number
-): Promise<APIResponse<SlicePagingData<WishListItem>>> => {
-    return await apiService.getSlicePaging<WishListItem>(
+): Promise<APIResponse<SlicePagingData<WishListItem | WishListItem[]>>> => {
+    return await apiService.getSlicePaging<WishListItem | WishListItem[]>(
         `/wishlist?page=${page}`
     );
 };

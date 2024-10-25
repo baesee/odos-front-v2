@@ -24,7 +24,8 @@ const WishlistEmpty: React.FC = () => (
             padding: 2,
             background: 'linear-gradient(to bottom, #2a2a4e, #26315e, #1f4480)',
             color: 'white',
-            height: '100vh',
+            height: '100%',
+            overflow: 'hidden',
         }}
     >
         <Box
@@ -79,10 +80,10 @@ const WishlistEmpty: React.FC = () => (
         <Typography
             variant="h6"
             sx={{
-                mt: 3,
+                mt: 3.5,
                 textAlign: 'center',
-                maxWidth: '80%',
-                lineHeight: 2,
+                maxWidth: '100%',
+                lineHeight: 1.5,
             }}
         >
             카드를 오른쪽으로 스와이프 하여
