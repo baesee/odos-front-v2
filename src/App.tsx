@@ -55,18 +55,18 @@ const AppContent: React.FC = () => {
             if (!cookieValue) {
                 cookieValue = generateUniqueId();
                 Cookies.set(cookieName, cookieValue, {
-                    path: '/',
-                    secure: true,
-                    domain: 'odos.today',
-                    sameSite: 'none',
+                    // path: '/',
+                    // secure: true,
+                    // domain: 'odos.today',
+                    // sameSite: 'none',
                     expires: 365,
                 });
             } else {
                 Cookies.set(cookieName, cookieValue, {
-                    path: '/',
-                    secure: true,
-                    domain: 'odos.today',
-                    sameSite: 'none',
+                    // path: '/',
+                    // secure: true,
+                    // domain: 'odos.today',
+                    // sameSite: 'none',
                     expires: 365,
                 });
             }
