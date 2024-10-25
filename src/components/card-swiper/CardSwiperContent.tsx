@@ -40,7 +40,8 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     right: 0,
                     maxHeight: '30%',
                     padding: 2,
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    background:
+                        'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%)',
                     color: 'white',
                     backdropFilter: 'blur(5px)',
                     overflowY: 'auto',

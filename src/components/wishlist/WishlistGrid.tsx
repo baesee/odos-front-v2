@@ -106,16 +106,18 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                                 >
                                     {item.wiseSayTitle}
                                 </Typography>
-                                <Typography
-                                    variant="body2"
-                                    sx={{
-                                        mt: 1,
-                                        opacity: 0.8,
-                                        fontSize: '0.8rem',
-                                    }}
-                                >
-                                    {item.wiseSayContent.substring(0, 30)}...
-                                </Typography>
+                                {!item.wiseSayVideoLink && (
+                                    <Typography
+                                        variant="body2"
+                                        sx={{
+                                            mt: 1,
+                                            opacity: 0.8,
+                                            fontSize: '0.8rem',
+                                        }}
+                                    >
+                                        {item.wiseSayContent.substring(0, 30)}...
+                                    </Typography>
+                                )}
                             </Box>
                         </WishlistCard>
                     </Grid>
