@@ -90,9 +90,6 @@ const MorePage: React.FC = () => {
                 overflowY: 'auto',
             }}
         >
-            <Typography variant="h4" sx={{ mb: 3, fontFamily: 'NanumSquareRoundEB, sans-serif' }}>
-                더보기
-            </Typography>
             {renderSection('공지사항', notices, 5)}
             {renderSection('FAQ', faqs, 5)}
             {renderSection('사용법', usageGuides, 1)}
