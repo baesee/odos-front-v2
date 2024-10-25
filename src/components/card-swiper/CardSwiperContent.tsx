@@ -61,23 +61,40 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
+                        alignItems: 'flex-start',
                     }}
                 >
                     <Typography
                         variant="h5"
-                        sx={{ fontFamily: 'NanumSquareRoundEB, sans-serif' }}
+                        sx={{
+                            fontFamily: 'NanumSquareRoundEB, sans-serif',
+                            flexGrow: 1,
+                            mr: 2,
+                        }}
                     >
                         {title}
                     </Typography>
-                    {videoLink && (
-                        <Typography
-                            variant="body2"
-                            sx={{ ml: 1, fontSize: '0.8rem' }}
-                        >
-                            출처 : {videoSource}
-                        </Typography>
-                    )}
+                    <Box sx={{ textAlign: 'right' }}>
+                        {videoLink && (
+                            <Typography
+                                variant="body2"
+                                sx={{ fontSize: '0.8rem' }}
+                            >
+                                출처 : {videoSource}
+                            </Typography>
+                        )}
+                        {representativeTag && (
+                            <Typography
+                                variant="body2"
+                                sx={{
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    fontSize: '0.7rem',
+                                }}
+                            >
+                                #{representativeTag}
+                            </Typography>
+                        )}
+                    </Box>
                 </Box>
                 {!videoLink && (
                     <Typography variant="body1" sx={{ mt: 1 }}>
