@@ -75,13 +75,13 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     >
                         {title}
                     </Typography>
-                    <Box sx={{ textAlign: 'right' }}>
+                    <Box sx={{ textAlign: 'right', minHeight: videoLink ? '3.9rem' : null }}>
                         {videoLink && (
                             <Typography
                                 variant="body2"
                                 sx={{ fontSize: '0.8rem' }}
                             >
-                                출처 : {videoSource}
+                                출처 : {videoSource}2
                             </Typography>
                         )}
                         {representativeTag && (
