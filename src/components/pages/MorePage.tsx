@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     List,
@@ -6,45 +6,55 @@ import {
     ListItemText,
     Collapse,
     IconButton,
+    CircularProgress,
+    Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useContentHeight } from '../../utils/useContentHeight';
-
-interface MoreItem {
-    title: string;
-    content: string;
-}
+import { fetchFAQList, fetchNoticeList, FAQ, Notice } from '../../api/morePageApi';
 
 const MorePage: React.FC = () => {
     const contentHeight = useContentHeight();
     const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
         '공지사항': false,
         'FAQ': false,
-        '사용법': true, // 사용법은 기본적으로 펼쳐진 상태
+        '사용법': true,
     });
+    const [notices, setNotices] = useState<Notice[]>([]);
+    const [faqs, setFaqs] = useState<FAQ[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [noticeResponse, faqResponse] = await Promise.all([
+                    fetchNoticeList(),
+                    fetchFAQList(),
+                ]);
+                setNotices(noticeResponse.data);
+                setFaqs(faqResponse.data);
+            } catch (err) {
+                setError('데이터를 불러오는 데 실패했습니다.');
+                console.error('데이터 로딩 오류:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const toggleSection = (section: string) => {
         setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
     };
 
-    const notices: MoreItem[] = [
-        { title: '공지사항 1', content: '공지사항 1의 내용입니다.' },
-        { title: '공지사항 2', content: '공지사항 2의 내용입니다.' },
-        { title: '공지사항 3', content: '공지사항 3의 내용입니다.' },
-    ];
-
-    const faqs: MoreItem[] = [
-        { title: 'FAQ 1', content: 'FAQ 1의 답변입니다.' },
-        { title: 'FAQ 2', content: 'FAQ 2의 답변입니다.' },
-        { title: 'FAQ 3', content: 'FAQ 3의 답변입니다.' },
-    ];
-
-    const usageGuides: MoreItem[] = [
+    const usageGuides = [
         { title: '사용법', content: 'ODOS 앱 사용법에 대한 상세 설명입니다.' },
     ];
 
-    const renderSection = (title: string, items: MoreItem[], maxItems: number) => (
+    const renderSection = (title: string, items: any[], maxItems: number) => (
         <Box sx={{ mb: 2 }}>
             <ListItem
                 onClick={() => toggleSection(title)}
@@ -62,19 +72,43 @@ const MorePage: React.FC = () => {
             </ListItem>
             <Collapse in={openSections[title]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    {items.slice(0, maxItems).map((item, index) => (
-                        <ListItem key={index} sx={{ pl: 4, py: 1 }}>
-                            <ListItemText
-                                primary={item.title}
-                                secondary={item.content}
-                                secondaryTypographyProps={{ sx: { color: 'rgba(255, 255, 255, 0.7)' } }}
-                            />
+                    {items.length > 0 ? (
+                        items.slice(0, maxItems).map((item, index) => (
+                            <ListItem key={index} sx={{ pl: 4, py: 1 }}>
+                                <ListItemText
+                                    primary={item.title}
+                                    secondary={item.content || item.answer}
+                                    secondaryTypographyProps={{ sx: { color: 'rgba(255, 255, 255, 0.7)' } }}
+                                />
+                            </ListItem>
+                        ))
+                    ) : (
+                        <ListItem sx={{ pl: 4, py: 1 }}>
+                            <Typography sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+                                조회된 내용이 없습니다.
+                            </Typography>
                         </ListItem>
-                    ))}
+                    )}
                 </List>
             </Collapse>
         </Box>
     );
+
+    if (loading) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (error) {
+        return (
+            <Box sx={{ color: 'error.main', textAlign: 'center', p: 2 }}>
+                {error}
+            </Box>
+        );
+    }
 
     return (
         <Box
