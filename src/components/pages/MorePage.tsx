@@ -157,7 +157,7 @@ const MorePage: React.FC = () => {
                                             alignItems="center"
                                             sx={{ mb: 1 }}
                                         >
-                                            <TouchAppIcon
+                                            <IosShareIcon
                                                 sx={{
                                                     color: '#26315e',
                                                     fontSize: 24,
@@ -180,7 +180,7 @@ const MorePage: React.FC = () => {
                                                 ml: 4,
                                             }}
                                         >
-                                            하단 공유 버튼(□↑)을 탭하세요
+                                            하단의 공유 버튼을 탭하세요
                                         </Typography>
                                     </Box>
 
@@ -342,7 +342,7 @@ const MorePage: React.FC = () => {
                                                     fontWeight: 600,
                                                 }}
                                             >
-                                                설치 배너 확인
+                                                메뉴 열기
                                             </Typography>
                                         </Stack>
                                         <Typography
@@ -352,8 +352,7 @@ const MorePage: React.FC = () => {
                                                 ml: 4,
                                             }}
                                         >
-                                            상단에 표시되는 설치 배너를
-                                            확인하세요
+                                            브라우저 상단의 메뉴(⋮)를 탭하세요
                                         </Typography>
                                     </Box>
 
@@ -364,7 +363,7 @@ const MorePage: React.FC = () => {
                                             alignItems="center"
                                             sx={{ mb: 1 }}
                                         >
-                                            <SystemUpdateIcon
+                                            <AddToHomeScreenIcon
                                                 sx={{
                                                     color: '#26315e',
                                                     fontSize: 24,
@@ -377,7 +376,7 @@ const MorePage: React.FC = () => {
                                                     fontWeight: 600,
                                                 }}
                                             >
-                                                앱 설치하기
+                                                홈 화면에 추가
                                             </Typography>
                                         </Stack>
                                         <Typography
@@ -387,7 +386,7 @@ const MorePage: React.FC = () => {
                                                 ml: 4,
                                             }}
                                         >
-                                            '앱 설치' 버튼을 탭하세요
+                                            '홈 화면에 추가' 메뉴를 선택하세요
                                         </Typography>
                                     </Box>
 
@@ -421,7 +420,7 @@ const MorePage: React.FC = () => {
                                                 ml: 4,
                                             }}
                                         >
-                                            설치 확인 후 완료를 탭하세요
+                                            '추가' 버튼을 눌러 설치를 완료하세요
                                         </Typography>
                                     </Box>
                                 </Stack>
@@ -457,8 +456,8 @@ const MorePage: React.FC = () => {
                         <Box
                             sx={{
                                 position: 'absolute',
-                                top: -8,
-                                right: -8,
+                                top: -4,
+                                right: -4,
                                 backgroundColor: '#26315e',
                                 borderRadius: '50%',
                                 width: 16,
@@ -471,12 +470,12 @@ const MorePage: React.FC = () => {
                                 color: 'white',
                             }}
                         >
-                            1
+                            2
                         </Box>
                     </Box>
                     <Typography
                         variant="h6"
-                        sx={{ color: 'white' }}
+                        sx={{ color: 'white', fontSize: '1.1rem' }}
                         component="div"
                     >
                         매일 2번의 새로운 명언
@@ -544,7 +543,7 @@ const MorePage: React.FC = () => {
         ...(isMobile()
             ? [
                   {
-                      title: '홈 화면에 설치하기',
+                      title: '홈 화면에 APP 설치하기',
                       content: <InstallGuide />,
                   },
               ]
@@ -565,11 +564,6 @@ const MorePage: React.FC = () => {
                     mb: 1,
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    border: '1px solid rgba(31, 68, 128, 0.5)',
-                    '&:hover': {
-                        backgroundColor: 'rgba(31, 68, 128, 0.4)',
-                        transform: 'translateX(5px)',
-                    },
                 }}
             >
                 <Box
