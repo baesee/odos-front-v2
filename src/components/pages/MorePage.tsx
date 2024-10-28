@@ -3,7 +3,6 @@ import {
     Box,
     List,
     ListItem,
-    ListItemText,
     Collapse,
     IconButton,
     CircularProgress,
@@ -12,8 +11,6 @@ import {
     Stack,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ShareIcon from '@mui/icons-material/Share';
 import AddToHomeScreenIcon from '@mui/icons-material/AddToHomeScreen';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IosShareIcon from '@mui/icons-material/IosShare';
@@ -34,7 +31,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import AndroidIcon from '@mui/icons-material/Android';
 import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
-import TouchAppIcon from '@mui/icons-material/TouchApp';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
