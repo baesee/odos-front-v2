@@ -24,13 +24,19 @@ import {
     FAQ,
     Notice,
 } from '../../api/morePageApi';
-import { isIOS } from '../../utils/deviceDetect';
+import { isIOS, isAndroid, isMobile } from '../../utils/deviceDetect';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import AndroidIcon from '@mui/icons-material/Android';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 interface GuideItem {
     title: string;
@@ -76,215 +82,355 @@ const MorePage: React.FC = () => {
     };
 
     const InstallGuide = () => {
+        if (!isMobile()) {
+            return null;
+        }
+
         if (isIOS()) {
             return (
                 <Stack spacing={3} sx={{ p: 2 }}>
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            p: 2,
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            borderRadius: 2,
-                        }}
-                    >
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            alignItems="center"
-                            sx={{ mb: 2 }}
+                    <Box sx={{ position: 'relative' }}>
+                        <Paper
+                            elevation={3}
+                            sx={{
+                                p: 3,
+                                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                backdropFilter: 'blur(10px)',
+                                borderRadius: 2,
+                                border: '1px solid rgba(38, 49, 94, 0.3)',
+                            }}
                         >
-                            <IosShareIcon
-                                sx={{ color: '#007AFF', fontSize: 30 }}
-                            />
-                            <Typography
-                                variant="h6"
-                                sx={{ color: 'white' }}
-                                component="div"
-                            >
-                                1단계
-                            </Typography>
-                        </Stack>
-                        <Typography
-                            sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                            component="div"
-                        >
-                            Safari 브라우저에서 하단의 "공유" 버튼을 탭하세요
-                        </Typography>
-                    </Paper>
+                            <Stack spacing={3}>
+                                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                                    <PhoneIphoneIcon
+                                        sx={{ fontSize: 48, color: '#26315e' }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ color: 'white', mt: 1 }}
+                                    >
+                                        iOS 설치 가이드
+                                    </Typography>
+                                </Box>
 
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            p: 2,
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            borderRadius: 2,
-                        }}
-                    >
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            alignItems="center"
-                            sx={{ mb: 2 }}
-                        >
-                            <AddToHomeScreenIcon
-                                sx={{ color: '#34C759', fontSize: 30 }}
-                            />
-                            <Typography
-                                variant="h6"
-                                sx={{ color: 'white' }}
-                                component="div"
-                            >
-                                2단계
-                            </Typography>
-                        </Stack>
-                        <Typography
-                            sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                            component="div"
-                        >
-                            스크롤을 내려 "홈 화면에 추가" 버튼을 선택하세요
-                        </Typography>
-                    </Paper>
+                                <Stack spacing={4}>
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <OpenInBrowserIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                Safari 브라우저로 접속
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            Safari 브라우저에서만 설치가
+                                            가능합니다
+                                        </Typography>
+                                    </Box>
 
-                    <Paper
-                        elevation={3}
-                        sx={{
-                            p: 2,
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(10px)',
-                            borderRadius: 2,
-                        }}
-                    >
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            alignItems="center"
-                            sx={{ mb: 2 }}
-                        >
-                            <ShareIcon
-                                sx={{ color: '#5856D6', fontSize: 30 }}
-                            />
-                            <Typography
-                                variant="h6"
-                                sx={{ color: 'white' }}
-                                component="div"
-                            >
-                                3단계
-                            </Typography>
-                        </Stack>
-                        <Typography
-                            sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                            component="div"
-                        >
-                            "추가" 버튼을 탭하여 설치를 완료하세요
-                        </Typography>
-                    </Paper>
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <TouchAppIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                공유 버튼 선택
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            하단 공유 버튼(□↑)을 탭하세요
+                                        </Typography>
+                                    </Box>
+
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <SystemUpdateIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                홈 화면에 추가
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            '홈 화면에 추가' 옵션을 선택하세요
+                                        </Typography>
+                                    </Box>
+
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <CheckCircleIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                설치 완료
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            '추가' 버튼을 눌러 설치를 완료하세요
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </Stack>
+                        </Paper>
+                    </Box>
                 </Stack>
             );
         }
 
-        return (
-            <Stack spacing={3} sx={{ p: 2 }}>
-                <Paper
-                    elevation={3}
-                    sx={{
-                        p: 2,
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: 2,
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        sx={{ mb: 2 }}
-                    >
-                        <MoreVertIcon sx={{ color: '#4285F4', fontSize: 30 }} />
-                        <Typography
-                            variant="h6"
-                            sx={{ color: 'white' }}
-                            component="div"
+        if (isAndroid()) {
+            return (
+                <Stack spacing={3} sx={{ p: 2 }}>
+                    <Box sx={{ position: 'relative' }}>
+                        <Paper
+                            elevation={3}
+                            sx={{
+                                p: 3,
+                                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                backdropFilter: 'blur(10px)',
+                                borderRadius: 2,
+                                border: '1px solid rgba(38, 49, 94, 0.3)',
+                            }}
                         >
-                            1단계
-                        </Typography>
-                    </Stack>
-                    <Typography
-                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                        component="div"
-                    >
-                        Chrome 브라우저 상단의 메뉴(⋮)를 탭하세요
-                    </Typography>
-                </Paper>
+                            <Stack spacing={3}>
+                                <Box sx={{ textAlign: 'center', mb: 2 }}>
+                                    <AndroidIcon
+                                        sx={{ fontSize: 48, color: '#26315e' }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ color: 'white', mt: 1 }}
+                                    >
+                                        Android 설치 가이드
+                                    </Typography>
+                                </Box>
 
-                <Paper
-                    elevation={3}
-                    sx={{
-                        p: 2,
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: 2,
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        sx={{ mb: 2 }}
-                    >
-                        <AddToHomeScreenIcon
-                            sx={{ color: '#34A853', fontSize: 30 }}
-                        />
-                        <Typography
-                            variant="h6"
-                            sx={{ color: 'white' }}
-                            component="div"
-                        >
-                            2단계
-                        </Typography>
-                    </Stack>
-                    <Typography
-                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                        component="div"
-                    >
-                        "앱 설치" 또는 "홈 화면에 추가"를 선택하세요
-                    </Typography>
-                </Paper>
+                                <Stack spacing={4}>
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <OpenInBrowserIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                Chrome 브라우저 확인
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            Chrome 브라우저에서 접속하세요
+                                        </Typography>
+                                    </Box>
 
-                <Paper
-                    elevation={3}
-                    sx={{
-                        p: 2,
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(10px)',
-                        borderRadius: 2,
-                    }}
-                >
-                    <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                        sx={{ mb: 2 }}
-                    >
-                        <ShareIcon sx={{ color: '#FBBC05', fontSize: 30 }} />
-                        <Typography
-                            variant="h6"
-                            sx={{ color: 'white' }}
-                            component="div"
-                        >
-                            3단계
-                        </Typography>
-                    </Stack>
-                    <Typography
-                        sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
-                        component="div"
-                    >
-                        설치 확인 메시지가 나타나면 "설치"를 탭하세요
-                    </Typography>
-                </Paper>
-            </Stack>
-        );
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <MoreVertIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                설치 배너 확인
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            상단에 표시되는 설치 배너를
+                                            확인하세요
+                                        </Typography>
+                                    </Box>
+
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <SystemUpdateIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                앱 설치하기
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            '앱 설치' 버튼을 탭하세요
+                                        </Typography>
+                                    </Box>
+
+                                    <Box>
+                                        <Stack
+                                            direction="row"
+                                            spacing={2}
+                                            alignItems="center"
+                                            sx={{ mb: 1 }}
+                                        >
+                                            <CheckCircleIcon
+                                                sx={{
+                                                    color: '#26315e',
+                                                    fontSize: 24,
+                                                }}
+                                            />
+                                            <Typography
+                                                component="div"
+                                                sx={{
+                                                    color: 'white',
+                                                    fontWeight: 600,
+                                                }}
+                                            >
+                                                설치 완료
+                                            </Typography>
+                                        </Stack>
+                                        <Typography
+                                            component="div"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                ml: 4,
+                                            }}
+                                        >
+                                            설치 확인 후 완료를 탭하세요
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </Stack>
+                        </Paper>
+                    </Box>
+                </Stack>
+            );
+        }
     };
 
     const UpdateTimeGuide = () => (
@@ -395,10 +541,14 @@ const MorePage: React.FC = () => {
             title: '새로운 명언 업데이트',
             content: <UpdateTimeGuide />,
         },
-        {
-            title: '홈 화면에 설치하기',
-            content: <InstallGuide />,
-        },
+        ...(isMobile()
+            ? [
+                  {
+                      title: '홈 화면에 설치하기',
+                      content: <InstallGuide />,
+                  },
+              ]
+            : []),
     ];
 
     const renderSection = (
