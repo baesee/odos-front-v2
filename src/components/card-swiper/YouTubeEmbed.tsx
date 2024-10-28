@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
 interface YouTubeEmbedProps {
     videoId: string;
@@ -6,31 +7,40 @@ interface YouTubeEmbedProps {
 
 const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({ videoId }) => {
     return (
-        <div
-            style={{
+        <Box
+            sx={{
                 position: 'relative',
                 width: '100%',
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 backgroundColor: '#000',
             }}
         >
-            <iframe
-                width="100%"
-                height="56.25%"
-                src={`https://www.youtube.com/embed/${videoId}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{
-                    position: 'absolute',
-                    left: 0,
-                    right: 0,
-                    margin: 'auto',
+            <Box
+                sx={{
+                    position: 'relative',
+                    width: '100%',
+                    paddingTop: '56.25%', // 16:9 비율 (9/16 * 100)
                 }}
-            ></iframe>
-        </div>
+            >
+                <iframe
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                    }}
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                />
+            </Box>
+        </Box>
     );
 };
 
