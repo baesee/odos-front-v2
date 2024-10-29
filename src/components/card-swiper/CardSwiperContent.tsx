@@ -46,17 +46,21 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                         'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%)',
                     color: 'white',
                     backdropFilter: 'blur(5px)',
-                    overflowY: 'auto',
+                    overflowY: 'scroll',
                     '&::-webkit-scrollbar': {
-                        width: '0.4em',
+                        width: '4px',
+                        display: 'block',
                     },
                     '&::-webkit-scrollbar-track': {
-                        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                        borderRadius: '2px',
                     },
                     '&::-webkit-scrollbar-thumb': {
-                        backgroundColor: 'rgba(255,255,255,.1)',
-                        outline: '1px solid slategrey',
+                        backgroundColor: 'rgba(255,255,255,0.3)',
+                        borderRadius: '2px',
+                        '&:hover': {
+                            backgroundColor: 'rgba(255,255,255,0.5)',
+                        },
                     },
                 }}
             >
@@ -100,14 +104,20 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     <>
                         <Typography
                             variant="body1"
-                            sx={{ mt: 1, whiteSpace: 'pre-line' }}
+                            sx={{
+                                mt: 1,
+                                whiteSpace: 'pre-line',
+                                wordBreak: 'keep-all',
+                                lineHeight: 1.6,
+                                fontSize: '0.95rem',
+                                mb: 2,
+                            }}
                         >
                             {description}
                         </Typography>
                         {author && (
                             <Typography
                                 sx={{
-                                    mt: 1,
                                     textAlign: 'right',
                                     fontStyle: 'italic',
                                     fontSize: '0.8rem',
