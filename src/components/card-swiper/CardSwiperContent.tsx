@@ -83,14 +83,6 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                             minHeight: videoLink ? '3.9rem' : null,
                         }}
                     >
-                        {videoLink && (
-                            <Typography
-                                variant="body2"
-                                sx={{ fontSize: '0.8rem' }}
-                            >
-                                출처 : {videoSource}2
-                            </Typography>
-                        )}
                         {representativeTag && (
                             <Typography
                                 variant="body2"
@@ -126,6 +118,19 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                             </Typography>
                         )}
                     </>
+                )}
+                {videoLink && (
+                    <Typography
+                        sx={{
+                            mt: 1,
+                            textAlign: 'right',
+                            fontStyle: 'italic',
+                            fontSize: '0.8rem',
+                            color: 'rgba(255, 255, 255, 0.7)',
+                        }}
+                    >
+                        출처 : {videoSource}
+                    </Typography>
                 )}
             </Box>
         </>

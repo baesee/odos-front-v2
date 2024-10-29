@@ -162,14 +162,6 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                             {item.wiseSayTitle}
                         </Typography>
                         <Box sx={{ textAlign: 'right' }}>
-                            {item.wiseSayVideoLink && (
-                                <Typography
-                                    variant="body2"
-                                    sx={{ fontSize: '0.8rem' }}
-                                >
-                                    출처 : {item.wiseSayVideoSource}
-                                </Typography>
-                            )}
                             {item.wiseSayRepresentativeTag && (
                                 <Typography
                                     variant="body2"
@@ -205,6 +197,20 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                             }}
                         >
                             - {item.wiseSayAuthor}
+                        </Typography>
+                    )}
+                    {item.wiseSayVideoLink && (
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                mt: 1,
+                                textAlign: 'right',
+                                fontStyle: 'italic',
+                                fontSize: '0.8rem',
+                                color: 'rgba(255, 255, 255, 0.7)',
+                            }}
+                        >
+                            출처 : {item.wiseSayVideoSource}
                         </Typography>
                     )}
                 </Box>
