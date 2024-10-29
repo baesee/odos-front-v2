@@ -186,9 +186,25 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                     {!item.wiseSayVideoLink && (
                         <Typography
                             variant="body1"
-                            sx={{ textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}
+                            sx={{
+                                textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                                whiteSpace: 'pre-line',
+                            }}
                         >
                             {item.wiseSayContent}
+                        </Typography>
+                    )}
+                    {item.wiseSayAuthor && (
+                        <Typography
+                            sx={{
+                                mt: 1,
+                                textAlign: 'right',
+                                fontStyle: 'italic',
+                                fontSize: '0.8rem',
+                                color: 'rgba(255, 255, 255, 0.7)',
+                            }}
+                        >
+                            - {item.wiseSayAuthor}
                         </Typography>
                     )}
                 </Box>

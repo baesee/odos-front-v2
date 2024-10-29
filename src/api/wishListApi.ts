@@ -9,6 +9,7 @@ export interface WishListItem {
     wiseSayVideoLink: string;
     wiseSayVideoSource: string;
     wiseSayRepresentativeTag: string;
+    wiseSayAuthor: string;
 }
 
 export const fetchWishList = async (

@@ -10,6 +10,7 @@ export interface WiseSay {
     videoSource: string;
     representativeTag: string;
     attachmentFileNo: number | null;
+    author: string;
 }
 
 export const convertWiseSayToCardData = (wiseSay: WiseSay): CardData => ({
@@ -24,6 +25,7 @@ export const convertWiseSayToCardData = (wiseSay: WiseSay): CardData => ({
         videoLink: wiseSay.videoLink,
         videoSource: wiseSay.videoSource,
         representativeTag: wiseSay.representativeTag,
+        author: wiseSay.author,
     }),
 });
 

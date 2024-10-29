@@ -8,6 +8,7 @@ interface CardSwiperContentProps {
     videoLink: string;
     videoSource: string;
     representativeTag: string;
+    author: string;
 }
 
 const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
@@ -16,6 +17,7 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
     videoLink,
     videoSource,
     representativeTag,
+    author,
 }) => {
     return (
         <>
@@ -75,7 +77,12 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     >
                         {title}
                     </Typography>
-                    <Box sx={{ textAlign: 'right', minHeight: videoLink ? '3.9rem' : null }}>
+                    <Box
+                        sx={{
+                            textAlign: 'right',
+                            minHeight: videoLink ? '3.9rem' : null,
+                        }}
+                    >
                         {videoLink && (
                             <Typography
                                 variant="body2"
@@ -98,9 +105,27 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     </Box>
                 </Box>
                 {!videoLink && (
-                    <Typography variant="body1" sx={{ mt: 1 }}>
-                        {description}
-                    </Typography>
+                    <>
+                        <Typography
+                            variant="body1"
+                            sx={{ mt: 1, whiteSpace: 'pre-line' }}
+                        >
+                            {description}
+                        </Typography>
+                        {author && (
+                            <Typography
+                                sx={{
+                                    mt: 1,
+                                    textAlign: 'right',
+                                    fontStyle: 'italic',
+                                    fontSize: '0.8rem',
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                }}
+                            >
+                                - {author}
+                            </Typography>
+                        )}
+                    </>
                 )}
             </Box>
         </>
