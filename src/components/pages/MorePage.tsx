@@ -99,7 +99,7 @@ const MorePage: React.FC = () => {
                             <Stack spacing={3}>
                                 <Box sx={{ textAlign: 'center', mb: 2 }}>
                                     <PhoneIphoneIcon
-                                        sx={{ fontSize: 48, color: '#26315e' }}
+                                        sx={{ fontSize: 48, color: 'white' }}
                                     />
                                     <Typography
                                         variant="h6"
@@ -120,7 +120,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <OpenInBrowserIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -155,7 +155,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <IosShareIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -189,7 +189,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <SystemUpdateIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -223,7 +223,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <CheckCircleIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -272,7 +272,7 @@ const MorePage: React.FC = () => {
                             <Stack spacing={3}>
                                 <Box sx={{ textAlign: 'center', mb: 2 }}>
                                     <AndroidIcon
-                                        sx={{ fontSize: 48, color: '#26315e' }}
+                                        sx={{ fontSize: 48, color: 'white' }}
                                     />
                                     <Typography
                                         variant="h6"
@@ -293,7 +293,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <OpenInBrowserIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -327,7 +327,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <MoreVertIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -361,7 +361,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <AddToHomeScreenIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -395,7 +395,7 @@ const MorePage: React.FC = () => {
                                         >
                                             <CheckCircleIcon
                                                 sx={{
-                                                    color: '#26315e',
+                                                    color: 'white',
                                                     fontSize: 24,
                                                 }}
                                             />
@@ -446,9 +446,7 @@ const MorePage: React.FC = () => {
                     sx={{ mb: 2 }}
                 >
                     <Box sx={{ position: 'relative' }}>
-                        <AccessTimeIcon
-                            sx={{ color: '#26315e', fontSize: 30 }}
-                        />
+                        <AccessTimeIcon sx={{ color: 'white', fontSize: 30 }} />
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -484,9 +482,7 @@ const MorePage: React.FC = () => {
                         alignItems="center"
                         sx={{ mb: 1 }}
                     >
-                        <AutorenewIcon
-                            sx={{ color: '#26315e', fontSize: 20 }}
-                        />
+                        <AutorenewIcon sx={{ color: 'white', fontSize: 20 }} />
                         <Typography
                             sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
                             component="div"
@@ -495,9 +491,7 @@ const MorePage: React.FC = () => {
                         </Typography>
                     </Stack>
                     <Stack direction="row" spacing={1} alignItems="center">
-                        <AutorenewIcon
-                            sx={{ color: '#26315e', fontSize: 20 }}
-                        />
+                        <AutorenewIcon sx={{ color: 'white', fontSize: 20 }} />
                         <Typography
                             sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
                             component="div"
@@ -518,7 +512,7 @@ const MorePage: React.FC = () => {
                 }}
             >
                 <Stack direction="row" spacing={2} alignItems="center">
-                    <LightbulbIcon sx={{ color: '#26315e', fontSize: 30 }} />
+                    <LightbulbIcon sx={{ color: 'white', fontSize: 30 }} />
                     <Typography
                         sx={{ color: 'rgba(255, 255, 255, 0.9)' }}
                         component="div"
