@@ -129,7 +129,8 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                                 image={
                                     item.wiseSayVideoLink
                                         ? `https://img.youtube.com/vi/${item.wiseSayVideoLink}/mqdefault.jpg`
-                                        : `https://picsum.photos/300/200?random=${item.wishlistItemNo}`
+                                        : `https://picsum.photos/id/${item.wiseSayNo}/400/600`
+                                    // : `https://picsum.photos/300/200?random=${item.wishlistItemNo}`
                                 }
                                 alt={item.wiseSayTitle}
                                 sx={{

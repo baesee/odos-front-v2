@@ -3,6 +3,7 @@ import { Typography, Box } from '@mui/material';
 import YouTubeEmbed from './YouTubeEmbed';
 
 interface CardSwiperContentProps {
+    wiseSayNo: number;
     title: string;
     description: string;
     videoLink: string;
@@ -12,6 +13,7 @@ interface CardSwiperContentProps {
 }
 
 const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
+    wiseSayNo,
     title,
     description,
     videoLink,
@@ -42,8 +44,9 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                               left: 0,
                               right: 0,
                               bottom: 0,
+                              //   backgroundImage: () =>`url(https://picsum.photos/400/600?random=${Math.random()})`,
                               backgroundImage: () =>
-                                  `url(https://picsum.photos/400/600?random=${Math.random()})`,
+                                  `url(https://picsum.photos/id/${wiseSayNo}/400/600)`,
                               backgroundSize: 'cover',
                               backgroundPosition: 'center',
                               opacity: 0.4,
