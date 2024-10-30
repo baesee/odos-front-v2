@@ -21,198 +21,258 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
         try {
             await deleteWishList(item.wishlistItemNo);
             onDelete(item.wishlistItemNo);
-            onClose();
         } catch (error) {
-            console.error('위시리스트 항목 삭제 실패:', error);
+            console.error('Failed to delete wishlist item:', error);
         }
     };
 
     return (
         <Box
-            onClick={onClose}
             sx={{
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
+                bgcolor: 'rgba(0, 0, 0, 0.7)',
+                zIndex: 1000,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                zIndex: 1000,
-                backdropFilter: 'blur(5px)',
+                padding: 2,
             }}
+            onClick={onClose}
         >
             <Box
-                onClick={(e) => e.stopPropagation()}
                 sx={{
                     position: 'relative',
-                    width: '90%',
-                    maxWidth: 400,
-                    height: '80%',
-                    backgroundColor: 'white',
-                    borderRadius: '16px',
+                    width: '100%',
+                    maxWidth: 440,
+                    height: '80vh',
+                    bgcolor: '#000',
+                    borderRadius: 2,
                     overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    boxShadow: '0 20px 40px rgba(255, 255, 255, 0.5)',
-                    transform: 'translateY(-20px)',
-                    transition:
-                        'transform 0.3s ease-out, box-shadow 0.3s ease-out',
                 }}
+                onClick={(e) => e.stopPropagation()}
             >
-                <IconButton
-                    onClick={onClose}
-                    sx={{
-                        position: 'absolute',
-                        top: 8,
-                        right: 8,
-                        color: 'white',
-                        zIndex: 1,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        padding: '4px',
-                        '&:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        },
-                    }}
-                >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                    onClick={handleDelete}
-                    sx={{
-                        position: 'absolute',
-                        top: 8,
-                        left: 8,
-                        color: 'white',
-                        zIndex: 1,
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                        padding: '4px',
-                        '&:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        },
-                    }}
-                >
-                    <DeleteIcon fontSize="small" />
-                </IconButton>
-                {item.wiseSayVideoLink && (
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: '3.5rem',
-                        }}
-                    >
-                        <YouTubeEmbed videoId={item.wiseSayVideoLink} />
-                    </Box>
-                )}
-                <Box
-                    component="img"
-                    src={`https://picsum.photos/400/600?random=${item.wiseSayNo}`}
-                    alt={item.wiseSayTitle}
-                    sx={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                    }}
-                />
                 <Box
                     sx={{
                         position: 'absolute',
-                        bottom: 0,
+                        top: 0,
                         left: 0,
                         right: 0,
-                        maxHeight: '30%',
-                        padding: 2,
-                        background:
-                            'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0) 100%)',
-                        color: 'white',
-                        backdropFilter: 'blur(5px)',
-                        overflowY: 'auto',
-                        '&::-webkit-scrollbar': {
-                            width: '0.4em',
-                        },
-                        '&::-webkit-scrollbar-track': {
-                            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-                        },
-                        '&::-webkit-scrollbar-thumb': {
-                            backgroundColor: 'rgba(255,255,255,.1)',
-                            outline: '1px solid slategrey',
-                        },
+                        bottom: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: '100%',
                     }}
                 >
                     <Box
                         sx={{
+                            position: 'relative',
+                            zIndex: 2,
                             display: 'flex',
                             justifyContent: 'space-between',
-                            alignItems: 'flex-start',
+                            padding: 1,
+                        }}
+                    >
+                        <IconButton
+                            onClick={handleDelete}
+                            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                        <IconButton
+                            onClick={onClose}
+                            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+
+                    <Box
+                        sx={{
+                            flex: 1,
+                            position: 'relative',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            padding: 3,
+                            pt: 0,
+                            paddingBottom: item.wiseSayVideoLink ? 4 : 2,
+                            '&::before': item.wiseSayVideoLink
+                                ? undefined
+                                : {
+                                      content: '""',
+                                      position: 'absolute',
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      backgroundImage: `url(https://picsum.photos/400/600?random=${Math.random()})`,
+                                      backgroundSize: 'cover',
+                                      backgroundPosition: 'center',
+                                      opacity: 0.4,
+                                      filter: 'blur(5px)',
+                                      zIndex: 0,
+                                  },
                         }}
                     >
                         <Typography
                             variant="h5"
-                            gutterBottom
                             sx={{
+                                position: 'relative',
+                                zIndex: 1,
+                                color: 'white',
                                 fontFamily: 'NanumSquareRoundEB, sans-serif',
+                                fontSize: '1.4rem',
+                                letterSpacing: '0.5px',
+                                textAlign: 'left',
+                                mb: 3,
                             }}
                         >
                             {item.wiseSayTitle}
                         </Typography>
-                        <Box sx={{ textAlign: 'right' }}>
-                            {item.wiseSayRepresentativeTag && (
-                                <Typography
-                                    variant="body2"
-                                    sx={{
-                                        color: 'rgba(255, 255, 255, 0.7)',
-                                        fontSize: '0.7rem',
-                                    }}
-                                >
-                                    #{item.wiseSayRepresentativeTag}
-                                </Typography>
-                            )}
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                            <IconButton
+                                onClick={handleDelete}
+                                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                            <IconButton
+                                onClick={onClose}
+                                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
                         </Box>
                     </Box>
-                    {!item.wiseSayVideoLink && (
-                        <Typography
-                            variant="body1"
-                            sx={{
-                                textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
-                                whiteSpace: 'pre-line',
-                            }}
-                        >
-                            {item.wiseSayContent}
-                        </Typography>
-                    )}
-                    {item.wiseSayAuthor && (
-                        <Typography
-                            sx={{
-                                mt: 1,
-                                textAlign: 'right',
-                                fontStyle: 'italic',
-                                fontSize: '0.8rem',
-                                color: 'rgba(255, 255, 255, 0.7)',
-                            }}
-                        >
-                            - {item.wiseSayAuthor}
-                        </Typography>
-                    )}
-                    {item.wiseSayVideoLink && (
-                        <Typography
-                            variant="body2"
-                            sx={{
-                                mt: 1,
-                                textAlign: 'right',
-                                fontStyle: 'italic',
-                                fontSize: '0.8rem',
-                                color: 'rgba(255, 255, 255, 0.7)',
-                            }}
-                        >
-                            출처 : {item.wiseSayVideoSource}
-                        </Typography>
-                    )}
+
+                        {item.wiseSayVideoLink ? (
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    flex: 1,
+                                    zIndex: 1,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <Box sx={{ flex: 1 }}>
+                                    <YouTubeEmbed
+                                        videoId={item.wiseSayVideoLink}
+                                    />
+                                </Box>
+                                <Typography
+                                    sx={{
+                                        mt: 2,
+                                        textAlign: 'right',
+                                        fontStyle: 'italic',
+                                        fontSize: '0.8rem',
+                                        color: 'rgba(255, 255, 255, 0.7)',
+                                    }}
+                                >
+                                    출처 : {item.wiseSayVideoSource}
+                                </Typography>
+                            </Box>
+                        ) : (
+                            <>
+                                <Box
+                                    sx={{
+                                        position: 'relative',
+                                        zIndex: 1,
+                                        flex: 1,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        minHeight: 0,
+                                        overflow: 'hidden',
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            width: '100%',
+                                            height: '100%',
+                                            overflowY: 'auto',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            '&::-webkit-scrollbar': {
+                                                width: '4px',
+                                            },
+                                            '&::-webkit-scrollbar-track': {
+                                                bgcolor:
+                                                    'rgba(255, 255, 255, 0.1)',
+                                            },
+                                            '&::-webkit-scrollbar-thumb': {
+                                                bgcolor:
+                                                    'rgba(255, 255, 255, 0.3)',
+                                                borderRadius: '2px',
+                                            },
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="body1"
+                                            sx={{
+                                                color: 'white',
+                                                whiteSpace: 'pre-line',
+                                                wordBreak: 'keep-all',
+                                                lineHeight: 1.8,
+                                                fontSize: '1.2rem',
+                                                textAlign: 'center',
+                                                fontWeight: 400,
+                                                letterSpacing: '0.3px',
+                                                width: '100%',
+                                                px: 1,
+                                            }}
+                                        >
+                                            {item.wiseSayContent}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        position: 'relative',
+                                        zIndex: 1,
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'flex-end',
+                                        gap: 1,
+                                        mt: 2,
+                                    }}
+                                >
+                                    {item.wiseSayRepresentativeTag && (
+                                        <Typography
+                                            variant="body2"
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.7)',
+                                                fontSize: '0.6rem',
+                                                bgcolor:
+                                                    'rgba(255, 255, 255, 0.1)',
+                                                px: 1.3,
+                                                py: 0.5,
+                                                borderRadius: '12px',
+                                            }}
+                                        >
+                                            #{item.wiseSayRepresentativeTag}
+                                        </Typography>
+                                    )}
+                                    {item.wiseSayAuthor && (
+                                        <Typography
+                                            sx={{
+                                                fontStyle: 'italic',
+                                                fontSize: '0.9rem',
+                                                color: 'rgba(255, 255, 255, 0.8)',
+                                                letterSpacing: '0.5px',
+                                            }}
+                                        >
+                                            - {item.wiseSayAuthor}
+                                        </Typography>
+                                    )}
+                                </Box>
+                            </>
+                        )}
+                    </Box>
                 </Box>
             </Box>
         </Box>
