@@ -21,157 +21,169 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
 }) => {
     return (
         <>
-            {videoLink ? (
-                <Box
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    bgcolor: '#000',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: 3,
+                    paddingBottom: videoLink ? 4 : 2,
+                    '&::before': videoLink
+                        ? undefined
+                        : {
+                              content: '""',
+                              position: 'absolute',
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              backgroundImage: (theme) =>
+                                  `url(https://picsum.photos/400/600?random=${Math.random()})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              opacity: 0.4,
+                              filter: 'blur(5px)',
+                              zIndex: 0,
+                          },
+                }}
+            >
+                <Typography
+                    variant="h5"
                     sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        bgcolor: '#000',
+                        position: 'relative',
+                        zIndex: 1,
+                        color: 'white',
+                        fontFamily: 'NanumSquareRoundEB, sans-serif',
+                        fontSize: '1.4rem',
+                        letterSpacing: '0.5px',
+                        textAlign: videoLink ? 'left' : 'center',
+                        mb: videoLink ? 2 : 0,
                     }}
                 >
-                    <YouTubeEmbed videoId={videoLink} />
-                </Box>
-            ) : (
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        bgcolor: '#000',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: 3,
-                        paddingBottom: 2,
-                        '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundImage: (theme) =>
-                                `url(https://picsum.photos/400/600?random=${Math.random()})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            opacity: 0.4,
-                            filter: 'blur(5px)',
-                            zIndex: 0,
-                        },
-                    }}
-                >
-                    <Typography
-                        variant="h5"
-                        sx={{
-                            position: 'relative',
-                            zIndex: 1,
-                            color: 'white',
-                            fontFamily: 'NanumSquareRoundEB, sans-serif',
-                            fontSize: '1.4rem',
-                            letterSpacing: '0.5px',
-                            mb: 3,
-                        }}
-                    >
-                        {title}
-                    </Typography>
+                    {title}
+                </Typography>
+                {videoLink ? (
                     <Box
                         sx={{
                             position: 'relative',
-                            zIndex: 1,
                             flex: 1,
+                            zIndex: 1,
                             display: 'flex',
                             flexDirection: 'column',
-                            justifyContent: 'center',
-                            maxHeight: '55%',
-                            overflowY: 'auto',
-                            '&::-webkit-scrollbar': {
-                                width: '4px',
-                            },
-                            '&::-webkit-scrollbar-track': {
-                                bgcolor: 'rgba(255, 255, 255, 0.1)',
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                bgcolor: 'rgba(255, 255, 255, 0.3)',
-                                borderRadius: '2px',
-                            },
                         }}
                     >
+                        <Box sx={{ flex: 1 }}>
+                            <YouTubeEmbed videoId={videoLink} />
+                        </Box>
                         <Typography
-                            variant="body1"
                             sx={{
-                                color: 'white',
-                                whiteSpace: 'pre-line',
-                                wordBreak: 'keep-all',
-                                lineHeight: 1.8,
-                                fontSize: '1.2rem',
-                                textAlign: 'center',
-                                fontWeight: 400,
-                                letterSpacing: '0.3px',
+                                mt: 2,
+                                textAlign: 'right',
+                                fontStyle: 'italic',
+                                fontSize: '0.8rem',
+                                color: 'rgba(255, 255, 255, 0.7)',
                             }}
                         >
-                            {description}
+                            출처 : {videoSource}
                         </Typography>
                     </Box>
-                    <Box
-                        sx={{
-                            position: 'relative',
-                            zIndex: 1,
-                            mt: 'auto',
-                            pt: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'flex-end',
-                            gap: 1,
-                        }}
-                    >
-                        {representativeTag && (
-                            <Typography
-                                variant="body2"
+                ) : (
+                    <>
+                        <Box
+                            sx={{
+                                position: 'relative',
+                                zIndex: 1,
+                                flex: 1,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                minHeight: 0,
+                                my: 3,
+                            }}
+                        >
+                            <Box
                                 sx={{
-                                    color: 'rgba(255, 255, 255, 0.7)',
-                                    fontSize: '0.6rem',
-                                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                                    px: 1.3,
-                                    py: 0.5,
-                                    borderRadius: '12px',
+                                    maxHeight: '100%',
+                                    overflowY: 'auto',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    '&::-webkit-scrollbar': {
+                                        width: '4px',
+                                    },
+                                    '&::-webkit-scrollbar-track': {
+                                        bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                    },
+                                    '&::-webkit-scrollbar-thumb': {
+                                        bgcolor: 'rgba(255, 255, 255, 0.3)',
+                                        borderRadius: '2px',
+                                    },
                                 }}
                             >
-                                #{representativeTag}
-                            </Typography>
-                        )}
-                        {author && (
-                            <Typography
-                                sx={{
-                                    fontStyle: 'italic',
-                                    fontSize: '0.9rem',
-                                    color: 'rgba(255, 255, 255, 0.8)',
-                                    letterSpacing: '0.5px',
-                                }}
-                            >
-                                - {author}
-                            </Typography>
-                        )}
-                    </Box>
-                </Box>
-            )}
-            {videoLink && (
-                <Typography
-                    sx={{
-                        position: 'absolute',
-                        bottom: 16,
-                        right: 16,
-                        fontStyle: 'italic',
-                        fontSize: '0.8rem',
-                        color: 'rgba(255, 255, 255, 0.7)',
-                    }}
-                >
-                    출처 : {videoSource}
-                </Typography>
-            )}
+                                <Typography
+                                    variant="body1"
+                                    sx={{
+                                        color: 'white',
+                                        whiteSpace: 'pre-line',
+                                        wordBreak: 'keep-all',
+                                        lineHeight: 1.8,
+                                        fontSize: '1.2rem',
+                                        textAlign: 'center',
+                                        fontWeight: 400,
+                                        letterSpacing: '0.3px',
+                                        width: '100%',
+                                        px: 1,
+                                    }}
+                                >
+                                    {description}
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <Box
+                            sx={{
+                                position: 'relative',
+                                zIndex: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-end',
+                                gap: 1,
+                            }}
+                        >
+                            {representativeTag && (
+                                <Typography
+                                    variant="body2"
+                                    sx={{
+                                        color: 'rgba(255, 255, 255, 0.7)',
+                                        fontSize: '0.6rem',
+                                        bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                        px: 1.3,
+                                        py: 0.5,
+                                        borderRadius: '12px',
+                                    }}
+                                >
+                                    #{representativeTag}
+                                </Typography>
+                            )}
+                            {author && (
+                                <Typography
+                                    sx={{
+                                        fontStyle: 'italic',
+                                        fontSize: '0.9rem',
+                                        color: 'rgba(255, 255, 255, 0.8)',
+                                        letterSpacing: '0.5px',
+                                    }}
+                                >
+                                    - {author}
+                                </Typography>
+                            )}
+                        </Box>
+                    </>
+                )}
+            </Box>
         </>
     );
 };
