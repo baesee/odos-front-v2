@@ -65,6 +65,23 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                         display: 'flex',
                         flexDirection: 'column',
                         height: '100%',
+                        bgcolor: '#000',
+                        '&::before': item.wiseSayVideoLink
+                            ? undefined
+                            : {
+                                  content: '""',
+                                  position: 'absolute',
+                                  top: 0,
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  backgroundImage: `url(https://picsum.photos/400/600?random=${Math.random()})`,
+                                  backgroundSize: 'cover',
+                                  backgroundPosition: 'center',
+                                  opacity: 0.4,
+                                  filter: 'blur(5px)',
+                                  zIndex: 0,
+                              },
                     }}
                 >
                     <Box
@@ -78,15 +95,37 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                     >
                         <IconButton
                             onClick={handleDelete}
-                            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                            sx={{
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                bgcolor: 'rgba(0, 0, 0, 0.3)',
+                                backdropFilter: 'blur(5px)',
+                                '&:hover': {
+                                    bgcolor: 'rgba(0, 0, 0, 0.5)',
+                                },
+                                padding: '4px',
+                                width: '28px',
+                                height: '28px',
+                                minWidth: '28px',
+                            }}
                         >
-                            <DeleteIcon />
+                            <DeleteIcon sx={{ fontSize: '1.1rem' }} />
                         </IconButton>
                         <IconButton
                             onClick={onClose}
-                            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                            sx={{
+                                color: 'rgba(255, 255, 255, 0.7)',
+                                bgcolor: 'rgba(0, 0, 0, 0.3)',
+                                backdropFilter: 'blur(5px)',
+                                '&:hover': {
+                                    bgcolor: 'rgba(0, 0, 0, 0.5)',
+                                },
+                                padding: '4px',
+                                width: '28px',
+                                height: '28px',
+                                minWidth: '28px',
+                            }}
                         >
-                            <CloseIcon />
+                            <CloseIcon sx={{ fontSize: '1.1rem' }} />
                         </IconButton>
                     </Box>
 
@@ -100,22 +139,7 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                             padding: 3,
                             pt: 0,
                             paddingBottom: item.wiseSayVideoLink ? 4 : 2,
-                            '&::before': item.wiseSayVideoLink
-                                ? undefined
-                                : {
-                                      content: '""',
-                                      position: 'absolute',
-                                      top: 0,
-                                      left: 0,
-                                      right: 0,
-                                      bottom: 0,
-                                      backgroundImage: `url(https://picsum.photos/400/600?random=${Math.random()})`,
-                                      backgroundSize: 'cover',
-                                      backgroundPosition: 'center',
-                                      opacity: 0.4,
-                                      filter: 'blur(5px)',
-                                      zIndex: 0,
-                                  },
+                            zIndex: 1,
                         }}
                     >
                         <Typography
@@ -127,27 +151,12 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                                 fontFamily: 'NanumSquareRoundEB, sans-serif',
                                 fontSize: '1.4rem',
                                 letterSpacing: '0.5px',
-                                textAlign: 'left',
+                                textAlign: 'center',
                                 mb: 3,
                             }}
                         >
                             {item.wiseSayTitle}
                         </Typography>
-                        <Box sx={{ display: 'flex', gap: 1 }}>
-                            <IconButton
-                                onClick={handleDelete}
-                                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
-                            <IconButton
-                                onClick={onClose}
-                                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                        </Box>
-                    </Box>
 
                         {item.wiseSayVideoLink ? (
                             <Box
