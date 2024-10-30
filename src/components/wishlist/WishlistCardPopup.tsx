@@ -47,8 +47,8 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                 sx={{
                     position: 'relative',
                     width: '100%',
-                    maxWidth: 440,
-                    height: '80vh',
+                    maxWidth: 390,
+                    height: '68vh',
                     bgcolor: '#000',
                     borderRadius: 2,
                     overflow: 'hidden',
