@@ -193,10 +193,11 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                                         zIndex: 1,
                                         flex: 1,
                                         display: 'flex',
-                                        alignItems: 'center',
+                                        alignItems: 'flex-start',
                                         justifyContent: 'center',
                                         minHeight: 0,
                                         overflow: 'hidden',
+                                        pt: 2,
                                     }}
                                 >
                                     <Box
@@ -205,7 +206,7 @@ const WishlistCardPopup: React.FC<WishlistCardPopupProps> = ({
                                             height: '100%',
                                             overflowY: 'auto',
                                             display: 'flex',
-                                            alignItems: 'center',
+                                            alignItems: 'flex-start',
                                             '&::-webkit-scrollbar': {
                                                 width: '4px',
                                             },
