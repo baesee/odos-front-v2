@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Typography,
     CardMedia,
     Grid,
-    CircularProgress,
+    Skeleton,
+    Fade,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { WishListItem } from '../../api/wishListApi';
@@ -31,6 +32,7 @@ interface WishlistGridProps {
     lastItemRef: (node: HTMLDivElement | null) => void;
     isLoading: boolean;
     hasMore: boolean;
+    hasLastItem?: boolean;
 }
 
 const WishlistGrid: React.FC<WishlistGridProps> = ({
@@ -39,8 +41,21 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
     lastItemRef,
     isLoading,
     hasMore,
+    hasLastItem,
 }) => {
     const [selectedItem, setSelectedItem] = useState<WishListItem | null>(null);
+    const [showEndMessage, setShowEndMessage] = useState(false);
+
+    useEffect(() => {
+        if (!isLoading && !hasMore && hasLastItem) {
+            setShowEndMessage(true);
+            const timer = setTimeout(() => {
+                setShowEndMessage(false);
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading, hasMore, hasLastItem]);
 
     const handleCardClick = (item: WishListItem) => {
         setSelectedItem(item);
@@ -55,9 +70,45 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
         setSelectedItem(null);
     };
 
+    const LoadingSkeleton = () => (
+        <Grid container spacing={2} sx={{ px: 1 }}>
+            {[1, 2, 3, 4].map((item) => (
+                <Grid item xs={6} key={item}>
+                    <Box sx={{ width: '100%', mb: 2 }}>
+                        <Skeleton
+                            variant="rectangular"
+                            width="100%"
+                            height={180}
+                            sx={{
+                                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                borderRadius: 2,
+                            }}
+                        />
+                        <Box sx={{ pt: 1 }}>
+                            <Skeleton
+                                variant="text"
+                                width="80%"
+                                sx={{
+                                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width="60%"
+                                sx={{
+                                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                </Grid>
+            ))}
+        </Grid>
+    );
+
     return (
-        <Box sx={{ width: '100%', maxWidth: '100%' }}>
-            <Grid container spacing={2}>
+        <Box>
+            <Grid container spacing={2} sx={{ px: 1 }}>
                 {wishList.list.map((item: WishListItem, index: number) => (
                     <Grid
                         item
@@ -115,7 +166,8 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                                             fontSize: '0.8rem',
                                         }}
                                     >
-                                        {item.wiseSayContent.substring(0, 30)}...
+                                        {item.wiseSayContent.substring(0, 30)}
+                                        ...
                                     </Typography>
                                 )}
                             </Box>
@@ -123,11 +175,45 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                     </Grid>
                 ))}
             </Grid>
-            {isLoading && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-                    <CircularProgress />
+            {isLoading && <LoadingSkeleton />}
+            <Fade
+                in={showEndMessage}
+                timeout={{
+                    enter: 300,
+                    exit: 500,
+                }}
+            >
+                <Box
+                    sx={{
+                        position: 'fixed',
+                        bottom: 80,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        py: 1.2,
+                        px: 3,
+                        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                        borderRadius: 3,
+                        zIndex: 1000,
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: 'white',
+                            fontSize: '0.95rem',
+                            fontWeight: 500,
+                            letterSpacing: '0.3px',
+                        }}
+                    >
+                        마지막 항목입니다
+                    </Typography>
                 </Box>
-            )}
+            </Fade>
             {!isLoading && hasMore && (
                 <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
                     <Typography>스크롤하여 더 많은 항목 로드</Typography>

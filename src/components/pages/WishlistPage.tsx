@@ -18,19 +18,25 @@ const WishlistPage: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [hasLastItem, setHasLastItem] = useState(false);
 
     const loadWishList = useCallback(
         async (pageNum: number) => {
             if (loading || !hasMore) return;
+            if (hasLastItem) return;
+
             setLoading(true);
             try {
                 const response = await fetchWishList(pageNum);
+                if (!response.data.list) {
+                    setHasMore(false);
+                    return;
+                }
                 setWishList((prevWishList) => {
                     if (prevWishList) {
                         const newList = Array.isArray(response.data.list)
                             ? response.data.list
                             : [response.data.list];
-                        // 중복 제거를 위해 Map 사용
                         const uniqueMap = new Map<number, WishListItem>();
                         [...prevWishList.list, ...newList].forEach((item) => {
                             uniqueMap.set(item.wishlistItemNo, item);
@@ -48,20 +54,21 @@ const WishlistPage: React.FC = () => {
                     };
                 });
                 setHasMore(response.data.hasNext);
+                setHasLastItem(response.data.last);
                 setPage(pageNum);
             } catch (err) {
                 setError('위시리스트 정보를 불러오는데 실패했습니다.');
-                console.error('위시리스트 정보 로딩 오류:', err);
+                setHasMore(false);
             } finally {
                 setLoading(false);
             }
         },
-        [loading, hasMore]
+        [loading, hasMore, page]
     );
 
     useEffect(() => {
         loadWishList(1);
-    }, [loadWishList]);
+    }, []);
 
     const { lastItemRef } = useInfiniteScroll(loading, hasMore, () =>
         loadWishList(page + 1)
@@ -102,6 +109,7 @@ const WishlistPage: React.FC = () => {
                     lastItemRef={lastItemRef}
                     isLoading={loading}
                     hasMore={hasMore}
+                    hasLastItem={hasLastItem}
                 />
             ) : null}
             {loading && <WishlistLoading />}
