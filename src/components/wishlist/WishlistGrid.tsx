@@ -33,6 +33,7 @@ interface WishlistGridProps {
     isLoading: boolean;
     hasMore: boolean;
     hasLastItem?: boolean;
+    currentPage: number;
 }
 
 const WishlistGrid: React.FC<WishlistGridProps> = ({
@@ -42,12 +43,13 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
     isLoading,
     hasMore,
     hasLastItem,
+    currentPage,
 }) => {
     const [selectedItem, setSelectedItem] = useState<WishListItem | null>(null);
     const [showEndMessage, setShowEndMessage] = useState(false);
 
     useEffect(() => {
-        if (!isLoading && !hasMore && hasLastItem) {
+        if (!isLoading && !hasMore && hasLastItem && currentPage > 1) {
             setShowEndMessage(true);
             const timer = setTimeout(() => {
                 setShowEndMessage(false);
@@ -55,7 +57,7 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
 
             return () => clearTimeout(timer);
         }
-    }, [isLoading, hasMore, hasLastItem]);
+    }, [isLoading, hasMore, hasLastItem, currentPage]);
 
     const handleCardClick = (item: WishListItem) => {
         setSelectedItem(item);

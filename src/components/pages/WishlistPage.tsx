@@ -110,6 +110,7 @@ const WishlistPage: React.FC = () => {
                     isLoading={loading}
                     hasMore={hasMore}
                     hasLastItem={hasLastItem}
+                    currentPage={page}
                 />
             ) : null}
             {loading && <WishlistLoading />}
