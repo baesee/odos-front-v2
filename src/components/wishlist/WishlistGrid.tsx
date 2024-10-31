@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Box,
-    Typography,
-    CardMedia,
-    Grid,
-    Skeleton,
-    Fade,
-} from '@mui/material';
+import { Box, Typography, Grid, Skeleton, Fade } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { WishListItem } from '../../api/wishListApi';
 import { SlicePagingData } from '../../types/response';
 import WishlistCardPopup from './WishlistCardPopup';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const WishlistCard = styled(Box)(({ theme }) => ({
     margin: '0 0 20px 0',
@@ -72,6 +66,13 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
         setSelectedItem(null);
     };
 
+    const getImageUrl = (item: WishListItem) => {
+        if (item.wiseSayVideoLink) {
+            return `https://img.youtube.com/vi/${item.wiseSayVideoLink}/mqdefault.jpg`;
+        }
+        return `https://picsum.photos/id/${item.wiseSayNo}/300/200`;
+    };
+
     const LoadingSkeleton = () => (
         <Grid container spacing={2} sx={{ px: 1 }}>
             {[1, 2, 3, 4].map((item) => (
@@ -123,21 +124,28 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({
                         }
                     >
                         <WishlistCard onClick={() => handleCardClick(item)}>
-                            <CardMedia
-                                component="img"
-                                height={'150'}
-                                image={
-                                    item.wiseSayVideoLink
-                                        ? `https://img.youtube.com/vi/${item.wiseSayVideoLink}/mqdefault.jpg`
-                                        : `https://picsum.photos/id/${item.wiseSayNo}/400/600`
-                                    // : `https://picsum.photos/300/200?random=${item.wishlistItemNo}`
-                                }
-                                alt={item.wiseSayTitle}
+                            <Box
                                 sx={{
-                                    width: '100%',
-                                    objectFit: 'cover',
+                                    position: 'relative',
+                                    paddingTop: '75%',
+                                    background: 'rgba(0, 0, 0, 0.1)',
                                 }}
-                            />
+                            >
+                                <LazyLoadImage
+                                    src={getImageUrl(item)}
+                                    alt={item.wiseSayTitle}
+                                    threshold={300}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                    }}
+                                    loading="lazy"
+                                />
+                            </Box>
                             <Box
                                 sx={{
                                     position: 'absolute',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import YouTubeEmbed from './YouTubeEmbed';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface CardSwiperContentProps {
     wiseSayNo: number;
@@ -35,26 +36,35 @@ const CardSwiperContent: React.FC<CardSwiperContentProps> = ({
                     flexDirection: 'column',
                     padding: 3,
                     paddingBottom: videoLink ? 4 : 2,
-                    '&::before': videoLink
-                        ? undefined
-                        : {
-                              content: '""',
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              bottom: 0,
-                              //   backgroundImage: () =>`url(https://picsum.photos/400/600?random=${Math.random()})`,
-                              backgroundImage: () =>
-                                  `url(https://picsum.photos/id/${wiseSayNo}/400/600)`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              opacity: 0.4,
-                              filter: 'blur(5px)',
-                              zIndex: 0,
-                          },
                 }}
             >
+                {!videoLink && (
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            opacity: 0.4,
+                            filter: 'blur(5px)',
+                            zIndex: 0,
+                            overflow: 'hidden',
+                        }}
+                    >
+                        <LazyLoadImage
+                            src={`https://picsum.photos/id/${wiseSayNo}/300/200`}
+                            alt="background"
+                            threshold={300}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                            }}
+                            loading="lazy"
+                        />
+                    </Box>
+                )}
                 <Typography
                     variant="h5"
                     sx={{

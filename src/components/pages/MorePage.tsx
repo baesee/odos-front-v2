@@ -667,7 +667,12 @@ const MorePage: React.FC = () => {
                                 <Box sx={{ width: '100%' }}>
                                     <Typography
                                         component="div"
-                                        sx={{ color: 'white' }}
+                                        sx={{
+                                            color: 'white',
+                                            fontSize: '1.2rem',
+                                            fontFamily:
+                                                'NanumSquareRoundEB, sans-serif',
+                                        }}
                                     >
                                         {item.title}
                                     </Typography>
@@ -677,6 +682,8 @@ const MorePage: React.FC = () => {
                                             sx={{
                                                 color: 'rgba(255, 255, 255, 0.7)',
                                                 mt: 0.5,
+                                                whiteSpace: 'pre-line',
+                                                mb: 1,
                                             }}
                                         >
                                             {item.content}
