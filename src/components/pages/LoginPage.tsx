@@ -60,15 +60,34 @@ const LoginPage: React.FC = () => {
                             expires: 90,
                         }
                     );
+
+                    window.gtag('event', 'login_success', {
+                        event_category: 'engagement',
+                        event_label: 'kakao_login',
+                        method: 'kakao',
+                    });
+
                     setIsLoggedIn(true);
                     checkLoginStatus();
                     navigate('/');
                 } catch (error) {
+                    window.gtag('event', 'login_failure', {
+                        event_category: 'engagement',
+                        event_label: 'kakao_login_failed',
+                        error_message: '카카오 로그인 실패',
+                    });
+
                     console.error('서버 로그인 실패:', error);
                     alert('로그인에 실패했습니다. 다시 시도해주세요.');
                 }
             },
             fail: (err) => {
+                window.gtag('event', 'login_failure', {
+                    event_category: 'engagement',
+                    event_label: 'kakao_login_failed',
+                    error_message: '카카오 로그인 실패',
+                });
+
                 console.error('카카오 로그인 실패:', err);
                 alert('카카오 로그인에 실패했습니다. 다시 시도해주세요.');
             },

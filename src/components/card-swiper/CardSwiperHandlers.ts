@@ -11,6 +11,10 @@ export const handleDismiss: CardEvent = async (
     action
 ) => {
     if (action === 'like') {
+        window.gtag('event', 'swipe_card', {
+            event_category: 'engagement',
+            event_label: 'Pass card',
+        });
         try {
             const wiseSayNo = typeof id === 'string' ? parseInt(id, 10) : id;
             if (isNaN(wiseSayNo)) {
@@ -35,6 +39,11 @@ export const handleDismiss: CardEvent = async (
             alert('로그인 후 이용해주세요.');
             window.location.href = '/login';
         }
+    } else {
+        window.gtag('event', 'swipe_card', {
+            event_category: 'engagement',
+            event_label: 'Add to wishlist',
+        });
     }
 };
 

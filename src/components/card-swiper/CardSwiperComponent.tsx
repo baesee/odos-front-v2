@@ -45,7 +45,7 @@ const CardSwiperComponent: React.FC = () => {
         try {
             window.gtag('event', 'load_more_cards_click', {
                 event_category: 'engagement',
-                event_label: 'card_swiper',
+                event_label: 'more_cards',
             });
 
             const url = getAdditionalWiseSayListUrl(allCardData);
