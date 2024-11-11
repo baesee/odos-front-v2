@@ -43,6 +43,11 @@ const CardSwiperComponent: React.FC = () => {
     const loadMoreCardData = async () => {
         setLoading(true);
         try {
+            window.gtag('event', 'load_more_cards_click', {
+                event_category: 'engagement',
+                event_label: 'card_swiper',
+            });
+
             const url = getAdditionalWiseSayListUrl(allCardData);
             const response = await fetchAdditionalWiseSayList(url);
             const newCardData = response.data.map(convertWiseSayToCardData);
