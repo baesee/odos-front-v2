@@ -6,6 +6,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ODOS | OneDay OneShock</title>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-ZFVC8JXWDH');
+        </script>
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js',
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-MGX38RPM');
+        </script>
+        <!-- End Google Tag Manager -->
         <link rel="manifest" href="public/manifest.json" />
         <!-- safari의 경우 webmanifest의 icon 컬렉션을 무시하므로 html에 별도로 명시해줘야 함 -->
         <link
@@ -288,17 +314,18 @@
             async
             src="https://www.googletagmanager.com/gtag/js?id=G-ZFVC8JXWDH"
         ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
-
-            gtag('config', 'G-ZFVC8JXWDH');
-        </script>
     </head>
     <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript
+            ><iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-MGX38RPM"
+                height="0"
+                width="0"
+                style="display: none; visibility: hidden"
+            ></iframe
+        ></noscript>
+        <!-- End Google Tag Manager (noscript) -->
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
     </body>
